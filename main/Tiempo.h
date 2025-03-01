@@ -11,7 +11,7 @@ typedef unsigned int Tm_Contador;
 
 /* Estructura para definir e implementar un período */
 typedef struct Tm_Periodo Tm_Periodo;
-#define SAMPLE_RATE 100         // Frecuencia de muestreo en Hz
+#define SAMPLE_RATE 500         // Frecuencia de muestreo en Hz
 #define TM_PER_F_ACTIVO    0x01		/* El per�odo est� activo */
 #define TM_PER_F_FC        0x02		/* Hubo fin de conteo en el per�odo */
 struct Tm_Periodo

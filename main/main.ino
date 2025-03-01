@@ -63,7 +63,7 @@ void loop(){
 
     Dp_Procese (&c_display);
     Tm_Baje_periodo(&c_tiempo,0);
-    //Serial.println(millis());
+    Serial.println(millis());
   }
    
   int a =millis();
