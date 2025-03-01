@@ -5,14 +5,12 @@
 
 #include <Tiempo.h>
 
-hw_timer_t *timer = NULL;
+extern Tm_Control c_tiempo;
 
 /* Rutina para iniciar el módulo (su estructura de datos) */   
 char Tm_Inicie (Tm_Control *tcp,
                 Tm_Periodo *pp, 
-                Tm_Num nper, 
-                Tm_Timeout *tp, 
-                Tm_Num nto)
+                Tm_Num nper)
    {
    /* Tabla de períodos */
    tcp->pp = pp;
@@ -23,12 +21,6 @@ char Tm_Inicie (Tm_Control *tcp,
       pp->contador = pp->periodo = 0;
       };
    
-   /* Tabla de timeouts/retardos */
-   tcp->tp = tp;
-   tcp->nto = nto;
-   for (; nto; ++tp, --nto)
-      *tp = 0;
-   
    /*Bajar bandera de funcionamiento base del temporizador*/
    tcp->atender_flag=NO;
 
@@ -38,46 +30,49 @@ char Tm_Inicie (Tm_Control *tcp,
 /* Rutina para inciar la configuación de la interrupción base */  
 char Tm_config_timer()
 {
+
+  hw_timer_t *timer = NULL;
+
      // Set timer frequency to 1 Mhz
-  timer = timerBegin(1000000);
+  timer = timerBegin(100000);
   // Attach onTimer function to our timer.
   timerAttachInterrupt(timer, &onTimer);
-  // Set alarm to call onTimer function every second (value in microseconds).
-  // Repeat the alarm (third parameter) with unlimited count = 0 (fourth parameter).
-  timerAlarm(timer, (1000000 / SAMPLE_RATE), true, 0);
+  timerAlarm(timer, (100000 / SAMPLE_RATE), true, 0);
 
   return SI;
 }
 
-
 /* Rutina de la interrupción */		
 void ARDUINO_ISR_ATTR onTimer() {
-int a=0;
-
+  c_tiempo.atender_flag=SI;
 }
 
 /* Rutina para procesar el módulo (dentro del loop de polling) */				
-void Tm_Procese (Tm_Control *tcp)
-   {
+void Tm_Procese (Tm_Control *tcp){
    Tm_Num n;
    Tm_Periodo *pp;
-   Tm_Timeout *tp;
-      
-   for (n = tcp->nper, pp = tcp->pp; n; ++pp, --n)
-      if (pp->banderas & TM_PER_F_ACTIVO)
-         {
-         --(pp->contador);
-         if ( !(pp->contador) )
-            {
-            pp->banderas |= TM_PER_F_FC;
-            pp->contador = pp->periodo;
-            };
-         };
+  
+   for (n = tcp->nper, pp = tcp->pp; n; ++pp, --n){
+  
+      if (pp->banderas & TM_PER_F_ACTIVO){
+          --(pp->contador);
+          if ( !(pp->contador) ){
+              pp->banderas |= TM_PER_F_FC;
+              pp->contador = pp->periodo;
+          };
+      };
+    };
+  };
 
-   for (n = tcp->nto, tp = tcp->tp; n; ++tp, --n)
-      if (*tp)
-         --(*tp);
-   };
+/* Obtiene valor de bandera principal de tiempo*/
+char get_atender_flag(Tm_Control *tcp){
+  return tcp->atender_flag;
+}
+
+/* modifica el valor de bandera principal de tiempo*/
+void set_atender_flag(Tm_Control *tcp, char value){
+  tcp->atender_flag=value;
+}
 
 /* ===== RUTINAS DE INTERFAZ ====== */
 /* Configurar un período para que empiece a funcionar */
@@ -85,10 +80,12 @@ char Tm_Inicie_periodo (Tm_Control *tcp,
                         Tm_Num num_periodo,
                         Tm_Contador periodo)
    {
+
    Tm_Periodo *pp = tcp->pp + num_periodo;
    
-   if (num_periodo >= tcp->nper)
-      return NO;
+   if (num_periodo >= tcp->nper){
+    return NO;
+   }
       
    pp->banderas = TM_PER_F_ACTIVO;
    pp->contador = pp->periodo = periodo;
@@ -132,43 +129,7 @@ void Tm_Baje_periodo (Tm_Control *tcp, Tm_Num num_periodo)
    pp->banderas &= ~TM_PER_F_FC;
    };
 
-/* Configurar un timeout/retardo para que empiece a funcionar */
-char Tm_Inicie_timeout (Tm_Control *tcp, Tm_Num num_timeout, Tm_Contador espera)
-   {
-   Tm_Timeout *tp = tcp->tp + num_timeout;
-   
-   if (num_timeout >= tcp->nto)
-      return NO;
-      
-   *tp = espera;
-   
-   return SI;
-   };
 
-/* Desactivar un timeout/retardo para que deje de funcionar */
-void Tm_Termine_timeout (Tm_Control *tcp, Tm_Num num_timeout)
-   {
-   Tm_Timeout *tp = tcp->tp + num_timeout;
-   
-   if (num_timeout >= tcp->nto)
-      return;
-      
-   *tp = 0;
-   };
-
-/* Verificar si hubo timeout (o se completo el retardo) */
-char Tm_Hubo_timeout (Tm_Control *tcp, Tm_Num num_timeout)
-   {
-   Tm_Timeout *tp = tcp->tp + num_timeout;
-   
-   if (num_timeout >= tcp->nto)
-      return NO;
-      
-   if (*tp)
-      return NO;
-
-   return SI;
-   };
 
 /* == FIN DE RUTINAS DE INTERFAZ == */
 

@@ -21,8 +21,6 @@ struct Tm_Periodo
                periodo;			/* Valor del per�odo a generar */
    };
    
-/* Tipo de dato para definir e implementar timeouts/retardos */   
-typedef Tm_Contador Tm_Timeout;
 
 /* Tipo de dato para dimensiones de los arreglos din�micos */
 typedef unsigned char Tm_Num;
@@ -39,17 +37,13 @@ struct Tm_Control
    Tm_Periodo *pp;
    Tm_Num nper;
    
-   /* Tabla de timeouts/retardos */
-   Tm_Timeout *tp;
-   Tm_Num nto;
-   
    /* Bandera de operación base del timer*/
-   bool atender_flag;
+   char atender_flag;
 
    };
 
 /* Rutina para iniciar el módulo (su estructura de datos) */   
-char Tm_Inicie (Tm_Control *tcp, Tm_Periodo *pp, Tm_Num nper, Tm_Timeout *tp, Tm_Num nto);
+char Tm_Inicie (Tm_Control *tcp, Tm_Periodo *pp, Tm_Num nper);
                 
 /* Rutina para procesar el módulo (dentro del loop de polling) */				
 void Tm_Procese (Tm_Control *tcp);
@@ -59,6 +53,12 @@ char Tm_config_timer();
 
 /* Rutina de interrupción del timer*/
 void ARDUINO_ISR_ATTR onTimer();
+
+/* Obtiene valor de bandera principal de tiempo*/
+char get_atender_flag(Tm_Control *tcp);
+
+/* modifica el valor de bandera principal de tiempo*/
+void set_atender_flag(Tm_Control *tcp, char value);
 
 /* ===== RUTINAS DE INTERFAZ ====== */
 /* Configurar un período para que empiece a funcionar */
@@ -73,15 +73,5 @@ char Tm_Hubo_periodo (Tm_Control *tcp, Tm_Num num_periodo);
 /* Bajar la bandera de conteo en un periodo */
 void Tm_Baje_periodo (Tm_Control *tcp, Tm_Num num_periodo);
 
-/* Configurar un timeout/retardo para que empiece a funcionar */
-char Tm_Inicie_timeout (Tm_Control *tcp, Tm_Num num_timeout, Tm_Contador espera);
-
-/* Desactivar un timeout/retardo para que deje de funcionar */
-void Tm_Termine_timeout (Tm_Control *tcp, Tm_Num num_timeout);
-
-/* Verificar si hubo timeout (o se completo el retardo) */
-char Tm_Hubo_timeout (Tm_Control *tcp, Tm_Num num_timeout);
-
 /* == FIN DE RUTINAS DE INTERFAZ == */
-
 #endif
