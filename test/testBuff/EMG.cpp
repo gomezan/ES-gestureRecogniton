@@ -1,10 +1,12 @@
 /* EMG.c    implementaci�n del módulo de adqusición de señales */
 
 #include <Tiempo.h>
+#include <Buffer.h>
 #include "EMG.h"
 #include "Varios.h"
 
 extern Tm_Control c_tiempo;
+extern Buffer_Control c_buff;
 
 // Definimos 8 vectores globales de tipo float
 float vector1[100], vector2[100], vector3[100], vector4[100],
@@ -39,7 +41,7 @@ char EMG_Inicie (EMG_Control *emg,
    
    //Inicializar periodo
    emg->n_periodo = n_periodo;
-   if ( !Tm_Inicie_periodo(&c_tiempo, n_periodo, PERIODO_BASE) )
+   if ( !Tm_Inicie_periodo(&c_tiempo, n_periodo, PERIODO_EMG) )
       return NO;
 
    return SI;
@@ -68,7 +70,12 @@ void EMG_Procese (EMG_Control *emg){
       emg->cont=0;
     }
 
+    //Almacenar datos en el buffer
+    for (int i = 0; i < NUM_CHANNELS; i++) 
+      Bf_Subir_Dato(&c_buff,i,inputSignals[i]);
+
    // Imprimir los valores de las salidas de los 8 canales
+   /*
     for (int i = 0; i < NUM_CHANNELS; i++) {
         Serial.print(inputSignals[i], 4);
         if(i!=NUM_CHANNELS-1){
@@ -78,6 +85,7 @@ void EMG_Procese (EMG_Control *emg){
         }
         
     }
+    */
    
 };
 

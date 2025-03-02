@@ -5,7 +5,7 @@
 
 #include <Tiempo.h>
 
-#define PERIODO_BASE 1 // Programado a 500 Hz
+#define PERIODO_EMG 1 // Programado a 500 Hz
 
 //Definición de los pines de entrada
 #define INPUT_PIN0 A0

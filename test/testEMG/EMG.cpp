@@ -21,7 +21,7 @@ char EMG_Inicie (EMG_Control *emg,
    
    //Inicializar periodo
    emg->n_periodo = n_periodo;
-   if ( !Tm_Inicie_periodo(&c_tiempo, n_periodo, PERIODO_BASE) )
+   if ( !Tm_Inicie_periodo(&c_tiempo, n_periodo, PERIODO_EMG) )
       return NO;
 
    return SI;

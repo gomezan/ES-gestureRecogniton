@@ -5,7 +5,7 @@
 
 #include <Tiempo.h>
 
-#define PERIODO_BASE 1 // Programado a 500 Hz
+#define PERIODO_EMG 1 // Programado a 500 Hz
 
 //Definición de los pines de entrada
 #define INPUT_PIN0 A0
@@ -34,7 +34,7 @@ struct EMG_PassBandFilterState {
    EMG_FilterState states[ORDER_PB];  // 20 estructuras z1, z2 por canal
 };
 
-//Estructura de control del display
+//Estructura de control del modulo EMG
 typedef struct EMG_Control EMG_Control;
 
 
