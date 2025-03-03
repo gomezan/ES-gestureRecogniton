@@ -31,8 +31,9 @@ char Sg_Inicie (Sg_Control *sg,
 /* Rutina para procesar el módulo (dentro del loop de polling) */				
 void Sg_Procese (Sg_Control *sg){
 
-  Bf_pointer *ptr;
-  int fill=SIZE_BUFFER-Bf_Libre(&c_buff, 0, ptr);
+  Bf_pointer ltr;
+  Bf_Libre(&c_buff, 0, &ltr);
+  int fill=SIZE_BUFFER-ltr;
 
   if(fill>=WINDOW_SIZE){
 
