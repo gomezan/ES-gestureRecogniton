@@ -6,7 +6,7 @@
 #include <Tiempo.h>
 
 #define PERIODO_SG 100 // Programado a 5 Hz
-#define WINDOW_SIZE 100
+#define WINDOW_SIZE 10
 
 /* Tipo de dato que almacena el tamaño de la ventana a tratar */
 typedef float Sg_data;
