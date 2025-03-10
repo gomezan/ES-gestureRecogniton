@@ -66,7 +66,7 @@ void EMG_Procese (EMG_Control *emg){
     inputSignals[7] = vector8[emg->cont];
 
     emg->cont=emg->cont+1;
-    if(emg->cont>100){
+    if(emg->cont==100){
       emg->cont=0;
     }
 
@@ -75,18 +75,16 @@ void EMG_Procese (EMG_Control *emg){
       Bf_Subir_Dato(&c_buff,i,inputSignals[i]);
 
    // Imprimir los valores de las salidas de los 8 canales
-   /*
+    /*   
     for (int i = 0; i < NUM_CHANNELS; i++) {
         Serial.print(inputSignals[i], 4);
         if(i!=NUM_CHANNELS-1){
            Serial.print(","); 
         } else{
             Serial.println();
-        }
-        
+        }   
     }
-    */
-   
+   */
 };
 
 

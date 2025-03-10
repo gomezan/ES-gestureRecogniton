@@ -2,12 +2,14 @@
 
 #include <Tiempo.h>
 #include <Buffer.h>
+#include <Caracterizador.h>
 #include "Varios.h"
 #include "Segmentador.h"
 
+
 extern Tm_Control c_tiempo;
 extern Buffer_Control c_buff;
-
+extern Cr_Control c_car;
 
 /* Rutina para iniciar el módulo (su estructura de datos) */   
 char Sg_Inicie (Sg_Control *sg, 
@@ -38,27 +40,34 @@ void Sg_Procese (Sg_Control *sg){
 
   if(fill>=WINDOW_SIZE){
 
-    for (int j=0; j< WINDOW_SIZE; j++){
+    void Sg_Procese (Sg_Control *sg){
 
-      float inputSignals[NUM_CHANNELS];
-
-      for (int i = 0; i < NUM_CHANNELS; i++)  
-      Bf_Bajar_Dato(&c_buff,i,&inputSignals[i]);
-      
-      // Imprimir los valores de las salidas de los 8 canales
-      /*
-        for (int i = 0; i < NUM_CHANNELS; i++) {
-            Serial.print(inputSignals[i]);
-            if(i!=NUM_CHANNELS-1){
-              Serial.print(","); 
-            } else{
-                Serial.println();
-            }
+      Bf_pointer ltr;
+      Bf_Libre(&c_buff, 0, &ltr);
+      int fill=SIZE_BUFFER-ltr;
+    
+    
+      if(fill>=WINDOW_SIZE){
+    
+        for (int j=0; j< WINDOW_SIZE; j++){
+    
+          for (int i = 0; i <  NUM_CHANNELS; i++)  
+          Bf_Bajar_Dato(&c_buff,i, (Bf_data*)&sg->wnd[i].canal[j]);
             
         }
+    
+        // Imprimir los valores de las salidas de los 8 canales
+        /*
+            for (int i=0;i<NUM_CHANNELS;i++){
+              for(int j=0;j<WINDOW_SIZE;j++){
+              Serial.print(sg->wnd[i].canal[j]);
+              Serial.print(",");
+            }
+              Serial.println();
+            }
         */
-
-  }
+      }
+    };
 
   }
   

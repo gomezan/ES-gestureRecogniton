@@ -27,7 +27,7 @@ char Sg_Inicie (Sg_Control *sg,
    };
 
 
-                  
+                			
 /* Rutina para procesar el módulo (dentro del loop de polling) */				
 void Sg_Procese (Sg_Control *sg){
 
@@ -35,32 +35,27 @@ void Sg_Procese (Sg_Control *sg){
   Bf_Libre(&c_buff, 0, &ltr);
   int fill=SIZE_BUFFER-ltr;
 
+
   if(fill>=WINDOW_SIZE){
 
     for (int j=0; j< WINDOW_SIZE; j++){
 
-      float inputSignals[NUM_CHANNELS];
+      for (int i = 0; i <  NUM_CHANNELS; i++)  
+      Bf_Bajar_Dato(&c_buff,i, (Bf_data*)&sg->wnd[i].canal[j]);
+        
+    }
 
-      for (int i = 0; i < NUM_CHANNELS; i++)  
-      Bf_Bajar_Dato(&c_buff,i,&inputSignals[i]);
-      
-      // Imprimir los valores de las salidas de los 8 canales
-        for (int i = 0; i < NUM_CHANNELS; i++) {
-            Serial.print(inputSignals[i]);
-            if(i!=NUM_CHANNELS-1){
-              Serial.print(","); 
-            } else{
-                Serial.println();
-            }
-            
+    // Imprimir los valores de las salidas de los 8 canales
+        for (int i=0;i<NUM_CHANNELS;i++){
+          for(int j=0;j<WINDOW_SIZE;j++){
+          Serial.print(sg->wnd[i].canal[j]);
+          Serial.print(",");
         }
-
+          Serial.println();
+        }
   }
-
-  }
-  
-   
 };
+
 
 
 /* ===== RUTINAS DE INTERFAZ ====== */

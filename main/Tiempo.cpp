@@ -1,6 +1,5 @@
 /* Tiempo.c    Implementación del modulo de tiempo */
 #if !defined(TIEMPO_C)
-
 #define TIEMPO_C
 
 #include <Tiempo.h>

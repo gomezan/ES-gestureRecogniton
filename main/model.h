@@ -1,6 +1,5 @@
 /* display.h    Definiciones del m�dulo Display */
 #if !defined(MODEL_H)
-
 #define  MODEL_H
 
 #include <Tiempo.h>
