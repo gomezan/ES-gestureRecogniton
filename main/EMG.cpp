@@ -3,10 +3,11 @@
 #include <Tiempo.h>
 #include "EMG.h"
 #include "Varios.h"
+#include <Buffer.h>
 
 //
 extern Tm_Control c_tiempo;
-
+extern Buffer_Control c_buff;
 
 /* Rutina para iniciar el módulo (su estructura de datos) */   
 char EMG_Inicie (EMG_Control *emg, 
@@ -50,6 +51,10 @@ void EMG_Procese (EMG_Control *emg){
       EMG_PassBandFilterState *pb = emg->pb + i;
       outputSignals[i] = pasabandas(outputSignals[i], pb->states);
    }
+
+    //Almacenar datos en el buffer
+    for (int i = 0; i < NUM_CHANNELS; i++) 
+      Bf_Subir_Dato(&c_buff,i,outputSignals[i]);
 
    // Imprimir los valores de las salidas de los 8 canales
    /*
