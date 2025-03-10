@@ -6,7 +6,10 @@
 /* Rutina para iniciar el módulo (su estructura de datos) */   
 char Cr_Inicie (Cr_Control *cr,
                 Sg_canalData *wnd,
-                Cr_Caracteristicas *vec
+                Cr_Caracteristicas *vec,
+                Cr_Caracteristicas *vReal,
+                Cr_Caracteristicas *vImag,
+                ArduinoFFT<Cr_Caracteristicas> FFT
                 )
    {
 
@@ -29,6 +32,12 @@ char Cr_Inicie (Cr_Control *cr,
     cr->funciones[10] = SSC;
     cr->funciones[11]= WAMP;
 
+    
+    /* Create FFT object */
+    cr->FFT= FFT;
+    cr->vReal=vReal;
+    cr->vImag=vImag;
+
    return SI;
    };
 
@@ -48,6 +57,24 @@ void Cr_Procese (Cr_Control *cr){
 
 /* ===== Cacteristicas del vector ====== */
 
+// Función para sumar los elementos de un array
+void calcular_FFT(Cr_Control *cr) {
+
+    cr->FFT.windowing(FFTWindow::Hamming, FFTDirection::Forward);
+    cr->FFT.compute(FFTDirection::Forward);
+    cr->FFT.complexToMagnitude(); 
+}
+
+// Función para sumar los elementos de un array
+void printVreal(Cr_Control *cr) {
+
+  for(int j=0;j<SAMPLES;j++){
+      Serial.print(cr->vReal[j]);
+    Serial.print(",");
+  }
+  Serial.println();
+
+}
 
 // Función para sumar los elementos de un array
 Cr_Caracteristicas suma(Cr_Control *cr,const Cr_Caracteristicas* arr, int size) {
@@ -227,6 +254,11 @@ Cr_Caracteristicas WAMP(Cr_Control *cr,const Cr_Caracteristicas* arr, int size) 
     }
 
     return wa;
+}
+
+//Función que calcula la MAS de la señal
+Cr_Caracteristicas MAS(Cr_Control *cr,const Cr_Caracteristicas* arr, int size) {
+    return cr->FFT.majorPeak();
 }
 
 /* ===== RUTINAS DE INTERFAZ ====== */

@@ -1,0 +1,80 @@
+
+#define BAUD_RATE 115200        // Velocidad de comunicación serial
+
+#include "Caracterizador.h"
+#include "Segmentador.h"
+
+Cr_Control c_car;
+
+const double signalFrequency = 200;
+const double samplingFrequency = 500;
+const uint8_t amplitude = 100;
+
+/* ventana de señales sEMG*/
+Sg_canalData data[NUM_CHANNELS];
+/* vector de cataceristicas*/
+Cr_Caracteristicas veChar[NUM_CHANNELS*NUM_CAR];
+
+/* Vectores se apoyo FFT */
+Cr_Caracteristicas vReal[SAMPLES]={0};
+Cr_Caracteristicas vImag[SAMPLES]={0};
+ArduinoFFT<Cr_Caracteristicas> FFT= ArduinoFFT<Cr_Caracteristicas>(vReal, vImag, SAMPLES,FS);  
+
+
+//Ejemplo
+float exam[] = {-36.680711608767794f, -33.592442513048354f, 36.84223991360335f, 5.3516252300900895f, 32.08713185998279f, -23.093708538445647f, 13.643245848027288f, 91.3948070840651f, 58.40297454774975f, 10.629410106259712f, -66.07582175533216f, -30.71827516626261f, 31.11068174810516f, -21.593385800130022f, -17.839909751659434f, -36.92452776727897f, 47.84253634403437f, -51.853397640145324f, -33.48240905391233f, -13.210535860504258f, -55.78957198160849f, -27.799303092462036f, -45.17132330289565f, -14.54495128383352f, 147.41243755509095f, 102.1910296189262f, 105.01017208754664f, 75.98079447012142f, -71.59707437905004f, -27.47435042372458f, -23.90732714223081f, -73.83648181996479f, -147.03375836894008f, -86.29692863575437f, 206.2384159865192f, -12.573693708284196f, -82.18093746348535f, 35.921857897276794f, 94.9400306282887f, 141.65248826405238f, -132.6749715513228f, -102.60326988157632f, -31.880035602659103f, -68.73325055503776f, 56.63007292969335f, -32.63152040830835f, 6.352882242481897f, 127.45148093119126f, 52.70257666104511f, 137.29382068459847f, -33.56072831960972f, -80.45204223795818f, 5.079087346376877f, 54.65430564967413f, -108.35726235645966f, -22.36989656267005f, -38.910582302785016f, -53.82373398441352f, -21.288578450948243f, -56.03922905076447f, 72.27256303229393f, -145.05492782508057f, 229.6738048540509f, 108.40559963206128f, -31.99944526040593f, -8.5138095086199f, 19.3792609029196f, 104.84117770869024f, 18.793876119988223f, -131.93797361283498f, -106.53890144309828f, -36.33440269257368f, -90.76088989813968f, -77.98616235006426f, -41.06660437605339f, 149.04108795649282f, 21.26397603159985f, 12.6248471728738f, 123.77963684704147f, 277.2975548275774f, -98.72794675830144f, -85.47552045996281f, -166.4943884288653f, 154.9857867852174f, -25.509763429344048f, 139.70479924489132f, -175.95699013089757f, -67.27875113457455f, -103.14829227885556f, 385.5619058900352f, -140.16326673168055f, -95.82222165738312f, -67.8933331753095f, -230.55483146526376f, -57.55092159046471f, 25.36425391440044f, 54.97859268616112f, -85.18765634416505f, 132.99425166130771f, 107.78337668827764f};
+
+void setup() {
+  Serial.begin(BAUD_RATE);
+
+
+  for (int i=0;i<NUM_CHANNELS;i++){
+    for(int j=0;j<WINDOW_SIZE;j++){
+        data[i].canal[j]=(i+1)*(j);
+    }
+  }
+
+  Cr_Inicie(&c_car, data,veChar,vReal,vImag,FFT);
+  Cr_Procese(&c_car);
+
+}
+
+void loop(){
+
+   float ratio = twoPi * signalFrequency / samplingFrequency; // Fraction of a complete cycle stored at each sample (in radians)
+  for (uint16_t i = 0; i < WINDOW_SIZE; i++){
+    
+    vReal[i] = exam[i];
+    //vReal[i] = int8_t(amplitude * sin(i * ratio) / 2.0);/* Build data with positive and negative values*/
+    //vReal[i] = uint8_t((amplitude * (sin(i * ratio) + 1.0)) / 2.0);/* Build data displaced on the Y axis to include only positive values*/
+    vImag[i] = 0.0; //Imaginary part must be zeroed in case of looping to avoid wrong calculations and overflows
+  }
+  /* Print the results of the simulated sampling according to time */
+  
+
+  calcular_FFT(&c_car);
+  Serial.println(MAS(&c_car,vReal,100));  
+ 
+  // Array de punteros a funciones
+
+  /*
+    for (int i=0;i<NUM_CHANNELS;i++){
+      for(int j=0;j<WINDOW_SIZE;j++){
+          Serial.print(data[i].canal[j]);
+          Serial.print(",");
+      }
+    Serial.println();
+  }
+  */
+
+/*
+  for(int j=0;j<NUM_CHANNELS*NUM_CAR;j++){
+      Serial.print(veChar[j]);
+    Serial.print(",");
+  }
+  Serial.println();
+*/
+
+//Serial.println(NUM_CHANNELS*NUM_CAR);
+
+}

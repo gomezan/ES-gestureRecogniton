@@ -9,7 +9,8 @@ Cr_Control c_car;
 /* ventana de señales sEMG*/
 Sg_canalData data[NUM_CHANNELS];
 /* vector de cataceristicas*/
-Cr_Caracteristicas veChar[NUM_CHANNELS*NUM_CAR];
+Cr_Caracteristicas veChar[NUM_CHANNELS*NUM_CAR]; 
+
 
 void setup() {
   Serial.begin(BAUD_RATE);
@@ -31,7 +32,7 @@ void loop(){
  
   // Array de punteros a funciones
 
-  /*    
+  /*
     for (int i=0;i<NUM_CHANNELS;i++){
       for(int j=0;j<WINDOW_SIZE;j++){
           Serial.print(data[i].canal[j]);
@@ -41,10 +42,20 @@ void loop(){
   }
   */
 
+/*
   for(int j=0;j<NUM_CHANNELS*NUM_CAR;j++){
       Serial.print(veChar[j]);
     Serial.print(",");
   }
   Serial.println();
+*/
+
+float inicio=millis();
+Cr_Procese(&c_car);
+float fin=millis();
+Serial.println(fin-inicio);
+delay(1000);
+
+//Serial.println(NUM_CHANNELS*NUM_CAR);
 
 }

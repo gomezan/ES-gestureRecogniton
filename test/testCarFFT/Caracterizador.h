@@ -30,17 +30,29 @@ struct Cr_Control
 
   /* Arreglo de funciones a usar para extraer caracteristicas */
   Cr_Caracteristicas (*funciones[NUM_CAR])(Cr_Control *cr,const Cr_Caracteristicas*, int);   
+
+  /*Vectores de funcionamiento de la FFT*/
+  volatile Cr_Caracteristicas *vReal;  
+  volatile Cr_Caracteristicas *vImag;
+
+  /* Create FFT object */
+  ArduinoFFT<Cr_Caracteristicas> FFT;  
            
 };
    
 /* ======= Rutinas ======== */
 /* Rutina para iniciar el módulo (su estructura de datos) */   
-char Cr_Inicie (Cr_Control *cr, Sg_canalData *wnd, Cr_Caracteristicas *vec);
+char Cr_Inicie (Cr_Control *cr, Sg_canalData *wnd, Cr_Caracteristicas *vec,
+                Cr_Caracteristicas *vReal,
+                Cr_Caracteristicas *vImag,
+                ArduinoFFT<Cr_Caracteristicas> FFT);
                   
 /* Rutina para procesar el módulo (dentro del loop de polling) */				
 void Cr_Procese (Cr_Control *cr);
 
 /* ===== RUTINAS DE INTERFAZ ====== */
+void printVreal(Cr_Control *cr);
+void calcular_FFT(Cr_Control *cr);
 Cr_Caracteristicas suma(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
 Cr_Caracteristicas promedio(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
 Cr_Caracteristicas rms(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
