@@ -1,61 +1,49 @@
-/* Caracterizador.h    Definiciones del m�dulo de extracción de caracteristicas */
-#if !defined(CARACTERIZADOR_H)
+/* Caracterizador_mod.h    Definiciones del módulo de extracción de caracteristicas */
 
+#if !defined(CARACTERIZADOR_H)
 #define  CARACTERIZADOR_H
 
 #include "Segmentador.h"
-#include <arduinoFFT.h>
 
-//Definición de número de caracteristicas
 #define NUM_CAR 12
+#define WAMP_THRESHOLD 140.0
+#define SAMPLES  128
+#define FS 500
+#define NUM_CHANNELS 8  // Define number of channels
 
-#define WAMP_THRESHOLD 140.0 // Umbral para la detección de cambios en WAMP
-#define SAMPLES  128 //Window for precessing FFT
-#define FS 500 
-
-
-/* Tipo de dato para vector de caracteristicas */
 typedef float Cr_Caracteristicas;
 
-//Estructura de control del modulo caracterizador
-typedef struct Cr_Control Cr_Control;
-struct Cr_Control
-{  
+typedef struct Cr_FuncionCaracteristica Cr_FuncionCaracteristica;
 
-  /* Ventana de segmentación */
-    volatile Sg_canalData *wnd;
-
-    /* Vector de caracteristicas */
-    volatile Cr_Caracteristicas *vec;
-
-  /* Arreglo de funciones a usar para extraer caracteristicas */
-  Cr_Caracteristicas (*funciones[NUM_CAR])(Cr_Control *cr,const Cr_Caracteristicas*, int);   
-           
+struct Cr_FuncionCaracteristica {
+    Cr_Caracteristicas (*func)(const Cr_Caracteristicas*, int);
+    Cr_Caracteristicas min;
+    Cr_Caracteristicas max;
 };
-   
-/* ======= Rutinas ======== */
-/* Rutina para iniciar el módulo (su estructura de datos) */   
+
+typedef struct Cr_Control Cr_Control;
+struct Cr_Control {
+    volatile Sg_canalData *wnd;
+    volatile Cr_Caracteristicas *vec;
+    Cr_FuncionCaracteristica funciones[NUM_CHANNELS][NUM_CAR];
+};
+
 char Cr_Inicie (Cr_Control *cr, Sg_canalData *wnd, Cr_Caracteristicas *vec);
-                  
-/* Rutina para procesar el módulo (dentro del loop de polling) */				
 void Cr_Procese (Cr_Control *cr);
+Cr_FuncionCaracteristica Cr_CrearFuncion(Cr_Caracteristicas (*f)(const Cr_Caracteristicas*, int), Cr_Caracteristicas min, Cr_Caracteristicas max);
 
-/* ===== RUTINAS DE INTERFAZ ====== */
-Cr_Caracteristicas suma(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas promedio(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas rms(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas varianza(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas desviacion_estandar(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas MAV(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas WL(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas ZC(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas SSC(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas skewness(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas kurtosis(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas integrar(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas WAMP(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas MAS(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-
-/* == FIN DE RUTINAS DE INTERFAZ == */
+Cr_Caracteristicas suma(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas promedio(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas rms(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas varianza(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas desviacion_estandar(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas MAV(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas WL(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas ZC(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas SSC(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas skewness(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas kurtosis(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas integrar(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas WAMP(const Cr_Caracteristicas* arr, int size);
 
 #endif

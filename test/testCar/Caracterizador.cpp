@@ -3,54 +3,144 @@
 #include <Caracterizador.h>
 #include "Varios.h"
 
-/* Rutina para iniciar el módulo (su estructura de datos) */   
-char Cr_Inicie (Cr_Control *cr,
-                Sg_canalData *wnd,
-                Cr_Caracteristicas *vec
-                )
-   {
 
-    //Inicializar ventana
-    cr->wnd=wnd;
-    //Inicializar vector de caracteristicas
-    cr->vec=vec;    
-    
-    //Inicializar funciones
-    cr->funciones[0] = rms;
-    cr->funciones[1] = desviacion_estandar;
-    cr->funciones[2] = varianza;
-    cr->funciones[3] = MAV;
-    cr->funciones[4] = WL;
-    cr->funciones[5] = promedio;
-    cr->funciones[6] = ZC;
-    cr->funciones[7] = kurtosis;
-    cr->funciones[8] = skewness;
-    cr->funciones[9] = integrar;
-    cr->funciones[10] = SSC;
-    cr->funciones[11]= WAMP;
+char Cr_Inicie(Cr_Control *cr, Sg_canalData *wnd, Cr_Caracteristicas *vec) {
+    cr->wnd = wnd;
+    cr->vec = vec;
 
-   return SI;
-   };
+    cr->funciones[0][0] = Cr_CrearFuncion(rms, 0.0380157638850652, 467.3821676197466104);
+        cr->funciones[0][1] = Cr_CrearFuncion(desviacion_estandar, -3.2162712292690401, 4.9187105543699596);
+        cr->funciones[0][2] = Cr_CrearFuncion(varianza, 5.3916707780954214, 359.6012505440169775);
+        cr->funciones[0][3] = Cr_CrearFuncion(MAV, -6.8200997944648396, 8.8466922977008160);
+        cr->funciones[0][4] = Cr_CrearFuncion(WL, 0.0033569186161588, 689.3975006170871893);
+        cr->funciones[0][5] = Cr_CrearFuncion(promedio, -7.8947545951659777, 7.2862134061642223);
+        cr->funciones[0][6] = Cr_CrearFuncion(ZC, 10.1197107424910993, 938.2479806079644504);
+        cr->funciones[0][7] = Cr_CrearFuncion(kurtosis, -7.6652106783009817, 7.8837651818651695);
+        cr->funciones[0][8] = Cr_CrearFuncion(skewness, 7.1900358335505468, 1087.8723795586010965);
+        cr->funciones[0][9] = Cr_CrearFuncion(integrar, -7.8530425704857008, 7.3819555175608800);
+        cr->funciones[0][10] = Cr_CrearFuncion(SSC, 0.0391189639848628, 1084.1388323450107691);
+        cr->funciones[0][11] = Cr_CrearFuncion(WAMP, -6.1129939427169804, 8.9170241272339563);
+        cr->funciones[1][0] = Cr_CrearFuncion(rms, 0.0380110243421893, 467.3559716946747926);
+        cr->funciones[1][1] = Cr_CrearFuncion(desviacion_estandar, -3565.7523982924681150, 3010.0600490780461769);
+        cr->funciones[1][2] = Cr_CrearFuncion(varianza, 5.3915321325716228, 359.6006662473003530);
+        cr->funciones[1][3] = Cr_CrearFuncion(MAV, -1500.9145027741310514, 1197.7252983398063861);
+        cr->funciones[1][4] = Cr_CrearFuncion(WL, 0.0033565130158372, 689.3833278782722118);
+        cr->funciones[1][5] = Cr_CrearFuncion(promedio, -3539.7147712973637681, 3110.7433968026739421);
+        cr->funciones[1][6] = Cr_CrearFuncion(ZC, 10.1192311600775966, 937.9667394730088290);
+        cr->funciones[1][7] = Cr_CrearFuncion(kurtosis, -4217.6256802436282669, 3357.7982487642707383);
+        cr->funciones[1][8] = Cr_CrearFuncion(skewness, 7.1896190599402399, 1087.7737821145015005);
+        cr->funciones[1][9] = Cr_CrearFuncion(integrar, -2244.0518432668391142, 2582.3296629548167402);
+        cr->funciones[1][10] = Cr_CrearFuncion(SSC, 0.0390988280110037, 1083.9343730001644417);
+        cr->funciones[1][11] = Cr_CrearFuncion(WAMP, -6005.6849099681594453, 5519.5407740847476816);
+        cr->funciones[2][0] = Cr_CrearFuncion(rms, 0.0014448379715425, 218421.6042786736798007);
+        cr->funciones[2][1] = Cr_CrearFuncion(desviacion_estandar, 10.0000000000000000, 99.0000000000000000);
+        cr->funciones[2][2] = Cr_CrearFuncion(varianza, 29.0686187365523026, 129312.6391655023180647);
+        cr->funciones[2][3] = Cr_CrearFuncion(MAV, 13.0000000000000000, 83.0000000000000000);
+        cr->funciones[2][4] = Cr_CrearFuncion(WL, 0.0000112661796255, 475249.3727565212757327);
+        cr->funciones[2][5] = Cr_CrearFuncion(promedio, 9.0000000000000000, 99.0000000000000000);
+        cr->funciones[2][6] = Cr_CrearFuncion(ZC, 102.3988392710853645, 879781.6043576274532825);
+        cr->funciones[2][7] = Cr_CrearFuncion(kurtosis, 9.0000000000000000, 91.0000000000000000);
+        cr->funciones[2][8] = Cr_CrearFuncion(skewness, 51.6906222270559752, 1183251.8010556877125055);
+        cr->funciones[2][9] = Cr_CrearFuncion(integrar, 14.0000000000000000, 91.0000000000000000);
+        cr->funciones[2][10] = Cr_CrearFuncion(SSC, 0.0015287183518340, 1174913.7249712597113103);
+        cr->funciones[2][11] = Cr_CrearFuncion(WAMP, 9.0000000000000000, 99.0000000000000000);
+        cr->funciones[3][0] = Cr_CrearFuncion(rms, 0.0334222599914291, 395.7445301264584145);
+        cr->funciones[3][1] = Cr_CrearFuncion(desviacion_estandar, 0.0000000000000000, 95.0000000000000000);
+        cr->funciones[3][2] = Cr_CrearFuncion(varianza, 4.1311097321445009, 291.9571220625174988);
+        cr->funciones[3][3] = Cr_CrearFuncion(MAV, 0.0000000000000000, 92.0000000000000000);
+        cr->funciones[3][4] = Cr_CrearFuncion(WL, 0.0029242985152203, 534.6184842970219506);
+        cr->funciones[3][5] = Cr_CrearFuncion(promedio, 0.0000000000000000, 90.0000000000000000);
+        cr->funciones[3][6] = Cr_CrearFuncion(ZC, 7.9201104886389260, 785.8234524640337213);
+        cr->funciones[3][7] = Cr_CrearFuncion(kurtosis, 0.0000000000000000, 94.0000000000000000);
+        cr->funciones[3][8] = Cr_CrearFuncion(skewness, 5.0561411876202378, 865.0762430883910383);
+        cr->funciones[3][9] = Cr_CrearFuncion(integrar, 0.0000000000000000, 99.0000000000000000);
+        cr->funciones[3][10] = Cr_CrearFuncion(SSC, 0.0318427636907003, 842.1513125972486478);
+        cr->funciones[3][11] = Cr_CrearFuncion(WAMP, 0.0000000000000000, 97.0000000000000000);
+        cr->funciones[4][0] = Cr_CrearFuncion(rms, 6.5644444741290799, 55682.6880945506563876);
+        cr->funciones[4][1] = Cr_CrearFuncion(desviacion_estandar, -250.0000000000000000, 245.0000000000000000);
+        cr->funciones[4][2] = Cr_CrearFuncion(varianza, 541.4729254925838404, 45347.9286915119228070);
+        cr->funciones[4][3] = Cr_CrearFuncion(MAV, -250.0000000000000000, 245.0000000000000000);
+        cr->funciones[4][4] = Cr_CrearFuncion(WL, 0.4586833890333783, 62271.1308118147935602);
+        cr->funciones[4][5] = Cr_CrearFuncion(promedio, -250.0000000000000000, 245.0000000000000000);
+        cr->funciones[4][6] = Cr_CrearFuncion(ZC, 1110.0301724970609030, 113627.8052920474729035);
+        cr->funciones[4][7] = Cr_CrearFuncion(kurtosis, -250.0000000000000000, 245.0000000000000000);
+        cr->funciones[4][8] = Cr_CrearFuncion(skewness, 805.1844282632732757, 138187.7730648851429578);
+        cr->funciones[4][9] = Cr_CrearFuncion(integrar, -250.0000000000000000, 245.0000000000000000);
+        cr->funciones[4][10] = Cr_CrearFuncion(SSC, 6.1587876873679992, 103638.8377840595203452);
+        cr->funciones[4][11] = Cr_CrearFuncion(WAMP, -250.0000000000000000, 245.0000000000000000);
+        cr->funciones[5][0] = Cr_CrearFuncion(rms, -34.0814742083912634, 33.1052897078743413);
+        cr->funciones[5][1] = Cr_CrearFuncion(desviacion_estandar, 0.0000020025180635, 1170.5719516724282130);
+        cr->funciones[5][2] = Cr_CrearFuncion(varianza, -14.4210813226712844, 11.6153170914179515);
+        cr->funciones[5][3] = Cr_CrearFuncion(MAV, 0.0677871799674236, 513.6318281122486269);
+        cr->funciones[5][4] = Cr_CrearFuncion(WL, -36.0803851081781985, 34.0868225922039869);
+        cr->funciones[5][5] = Cr_CrearFuncion(promedio, 0.0000000123566382, 2554.2690523020210094);
+        cr->funciones[5][6] = Cr_CrearFuncion(ZC, -45.7277302166717874, 38.7952288657816453);
+        cr->funciones[5][7] = Cr_CrearFuncion(kurtosis, 0.3410668427231363, 4135.1180950585658138);
+        cr->funciones[5][8] = Cr_CrearFuncion(skewness, -22.3546311214303017, 23.4158201286864127);
+        cr->funciones[5][9] = Cr_CrearFuncion(integrar, 0.0446789910957953, 5852.4277069122299508);
+        cr->funciones[5][10] = Cr_CrearFuncion(SSC, -62.0156817196770831, 54.4040499404158595);
+        cr->funciones[5][11] = Cr_CrearFuncion(WAMP, 0.0000015000316059, 4954.7232075273523151);
+        cr->funciones[6][0] = Cr_CrearFuncion(rms, 10.0000000000000000, 99.0000000000000000);
+        cr->funciones[6][1] = Cr_CrearFuncion(desviacion_estandar, 0.0036438971873730, 3568.8649688338355190);
+        cr->funciones[6][2] = Cr_CrearFuncion(varianza, 13.0000000000000000, 83.0000000000000000);
+        cr->funciones[6][3] = Cr_CrearFuncion(MAV, 39.8578161485393707, 2048.3182181353163287);
+        cr->funciones[6][4] = Cr_CrearFuncion(WL, 9.0000000000000000, 99.0000000000000000);
+        cr->funciones[6][5] = Cr_CrearFuncion(promedio, 0.0003217939226148, 4816.4827019667027344);
+        cr->funciones[6][6] = Cr_CrearFuncion(ZC, 9.0000000000000000, 91.0000000000000000);
+        cr->funciones[6][7] = Cr_CrearFuncion(kurtosis, 76.5746115356847099, 8233.7261752636713936);
+        cr->funciones[6][8] = Cr_CrearFuncion(skewness, 14.0000000000000000, 91.0000000000000000);
+        cr->funciones[6][9] = Cr_CrearFuncion(integrar, 19.5737731946590223, 7152.8633108544318020);
+        cr->funciones[6][10] = Cr_CrearFuncion(SSC, 9.0000000000000000, 99.0000000000000000);
+        cr->funciones[6][11] = Cr_CrearFuncion(WAMP, 0.0063154620037279, 7464.8893133213341571);
+        cr->funciones[7][0] = Cr_CrearFuncion(rms, -1.9863222456777987, 37.3440814957047067);
+        cr->funciones[7][1] = Cr_CrearFuncion(desviacion_estandar, 0.0865224904392508, 3832.7895602884168511);
+        cr->funciones[7][2] = Cr_CrearFuncion(varianza, -1.1860137100071722, 82.2649951955910694);
+        cr->funciones[7][3] = Cr_CrearFuncion(MAV, 45.8047702278999012, 1897.9145221041203513);
+        cr->funciones[7][4] = Cr_CrearFuncion(WL, -1.9889582568097119, 70.1129395438810121);
+        cr->funciones[7][5] = Cr_CrearFuncion(promedio, 0.0112162387381278, 5517.4747933185972215);
+        cr->funciones[7][6] = Cr_CrearFuncion(ZC, -1.3871218493503026, 70.3993748693595478);
+        cr->funciones[7][7] = Cr_CrearFuncion(kurtosis, 88.1015035669696402, 8062.3003166157150190);
+        cr->funciones[7][8] = Cr_CrearFuncion(skewness, -1.5403968348666914, 70.1419856451668124);
+        cr->funciones[7][9] = Cr_CrearFuncion(integrar, 43.5075786529528870, 8034.5611956951870525);
+        cr->funciones[7][10] = Cr_CrearFuncion(SSC, -1.9859837323986649, 82.9621977328555431);
+        cr->funciones[7][11] = Cr_CrearFuncion(WAMP, 0.2422495592401161, 8409.3208891742178821);
 
+    return 1;
+}
 
-                  
-/* Rutina para procesar el módulo (dentro del loop de polling) */				
-void Cr_Procese (Cr_Control *cr){
-
-  int index = 0; // Índice para almacenar características
-
-    for (int ch = 0; ch < NUM_CHANNELS; ch++) { // Iterar sobre canales
-        for (int f_idx = 0; f_idx < NUM_CAR; f_idx++) { // Iterar sobre funciones
-            cr->vec[index++] = cr->funciones[f_idx](cr,const_cast<Cr_Caracteristicas*>(cr->wnd[ch].canal), WINDOW_SIZE);
+void Cr_Procese(Cr_Control *cr) {
+    int index = 0;
+    for (int ch = 0; ch < NUM_CHANNELS; ch++) {
+        for (int f_idx = 0; f_idx < NUM_CAR; f_idx++) {
+            Cr_FuncionCaracteristica fc = cr->funciones[ch][f_idx];
+            Cr_Caracteristicas val = fc.func((const Cr_Caracteristicas*) cr->wnd[ch].canal, WINDOW_SIZE);
+            if (fc.max != fc.min) {
+                val = (val - fc.min) / (fc.max - fc.min);
+                if (val < 0.0) val = 0.0;
+                if (val > 1.0) val = 1.0;
+            } else {
+                val = 0.0;
+            }
+            cr->vec[index++] = val;
         }
-    } 
-};
+    }
+}
+
+
+   
+Cr_FuncionCaracteristica Cr_CrearFuncion(Cr_Caracteristicas (*f)(const Cr_Caracteristicas*, int), Cr_Caracteristicas min, Cr_Caracteristicas max) {
+    Cr_FuncionCaracteristica fc;
+    fc.func = f;
+    fc.min = min;
+    fc.max = max;
+    return fc;
+}
 
 /* ===== Cacteristicas del vector ====== */
 
 
 // Función para sumar los elementos de un array
-Cr_Caracteristicas suma(Cr_Control *cr,const Cr_Caracteristicas* arr, int size) {
+Cr_Caracteristicas suma(const Cr_Caracteristicas* arr, int size) {
     Cr_Caracteristicas sum = 0;
     for (int i = 0; i < size; i++) {
         sum += arr[i];
@@ -59,7 +149,7 @@ Cr_Caracteristicas suma(Cr_Control *cr,const Cr_Caracteristicas* arr, int size) 
 }
 
 // Función para calcular RMS (Root Mean Square)
-Cr_Caracteristicas rms(Cr_Control *cr,const Cr_Caracteristicas* arr, int size) {
+Cr_Caracteristicas rms(const Cr_Caracteristicas* arr, int size) {
     if (size == 0) return 0;
 
     Cr_Caracteristicas sum_sq = 0;
@@ -71,10 +161,10 @@ Cr_Caracteristicas rms(Cr_Control *cr,const Cr_Caracteristicas* arr, int size) {
 }
 
 // Función que calcula la varianza
-Cr_Caracteristicas varianza(Cr_Control *cr,const Cr_Caracteristicas* arr, int size) {
+Cr_Caracteristicas varianza(const Cr_Caracteristicas* arr, int size) {
     if (size == 0) return 0;
 
-    Cr_Caracteristicas mu = promedio(cr,arr, size);
+    Cr_Caracteristicas mu = promedio(arr, size);
     Cr_Caracteristicas sum_sq_diff = 0;
 
     for (int i = 0; i < size; i++) {
@@ -85,12 +175,12 @@ Cr_Caracteristicas varianza(Cr_Control *cr,const Cr_Caracteristicas* arr, int si
 }
 
 // Función que calcula la desviación Estándar
-Cr_Caracteristicas desviacion_estandar(Cr_Control *cr,const Cr_Caracteristicas* arr, int size) {
-    return sqrt(varianza(cr,arr, size)); // Desviación estándar es la raíz de la varianza
+Cr_Caracteristicas desviacion_estandar(const Cr_Caracteristicas* arr, int size) {
+    return sqrt(varianza(arr, size)); // Desviación estándar es la raíz de la varianza
 }
 
 // Función para calcular el MAV (Mean Absolute Value)
-Cr_Caracteristicas MAV(Cr_Control *cr,const Cr_Caracteristicas* arr, int size) {
+Cr_Caracteristicas MAV(const Cr_Caracteristicas* arr, int size) {
     if (size == 0) return 0;
 
     Cr_Caracteristicas sum_abs = 0;
@@ -102,7 +192,7 @@ Cr_Caracteristicas MAV(Cr_Control *cr,const Cr_Caracteristicas* arr, int size) {
 }
 
 // Función para calcular el WL (Waveform Length)
-Cr_Caracteristicas WL(Cr_Control *cr,const Cr_Caracteristicas* arr, int size) {
+Cr_Caracteristicas WL(const Cr_Caracteristicas* arr, int size) {
     if (size < 2) return 0; // No hay diferencias si hay solo un dato
 
     Cr_Caracteristicas wl_sum = 0;
@@ -114,12 +204,12 @@ Cr_Caracteristicas WL(Cr_Control *cr,const Cr_Caracteristicas* arr, int size) {
 }
 
 // Función para calcular el promedio
-Cr_Caracteristicas promedio(Cr_Control *cr,const Cr_Caracteristicas* arr, int size) {
-    return (size == 0) ? 0 : suma(cr,arr, size) / size;
+Cr_Caracteristicas promedio(const Cr_Caracteristicas* arr, int size) {
+    return (size == 0) ? 0 : suma(arr, size) / size;
 } 
 
 // Función para calcular el ZC (Zero Crossing)
-Cr_Caracteristicas ZC(Cr_Control *cr,const Cr_Caracteristicas* arr, int size) {
+Cr_Caracteristicas ZC(const Cr_Caracteristicas* arr, int size) {
     if (size < 2) return 0;
 
     int count = 0;
@@ -133,7 +223,7 @@ Cr_Caracteristicas ZC(Cr_Control *cr,const Cr_Caracteristicas* arr, int size) {
 }
 
 // Función para calcular el SSC (Slope Sign Change)
-Cr_Caracteristicas SSC(Cr_Control *cr,const Cr_Caracteristicas* arr, int size) {
+Cr_Caracteristicas SSC(const Cr_Caracteristicas* arr, int size) {
     if (size < 2) return 0;
 
     int sign_changes = 0;
@@ -158,7 +248,7 @@ Cr_Caracteristicas SSC(Cr_Control *cr,const Cr_Caracteristicas* arr, int size) {
 
 
 //  Función para calcular el Skewness (asimetría)
-Cr_Caracteristicas skewness(Cr_Control *cr,const Cr_Caracteristicas* arr, int size) {
+Cr_Caracteristicas skewness(const Cr_Caracteristicas* arr, int size) {
     if (size < 2) return 0.0;
 
     Cr_Caracteristicas mean = 0.0;
@@ -181,7 +271,7 @@ Cr_Caracteristicas skewness(Cr_Control *cr,const Cr_Caracteristicas* arr, int si
 }
 
 //  Función para calcular la Kurtosis (curtosis)
-Cr_Caracteristicas kurtosis(Cr_Control *cr,const Cr_Caracteristicas* arr, int size) {
+Cr_Caracteristicas kurtosis(const Cr_Caracteristicas* arr, int size) {
     if (size < 2) return 0.0;
 
     Cr_Caracteristicas mean = 0.0;
@@ -205,7 +295,7 @@ Cr_Caracteristicas kurtosis(Cr_Control *cr,const Cr_Caracteristicas* arr, int si
 }
 
 // Función para calcular la integral de la señal usando el método del trapecio
-Cr_Caracteristicas integrar(Cr_Control *cr,const Cr_Caracteristicas* arr, int size) {
+Cr_Caracteristicas integrar(const Cr_Caracteristicas* arr, int size) {
     Cr_Caracteristicas area = 0.0;
     Cr_Caracteristicas dx=1.0;
     for (int i = 0; i < size - 1; ++i) {
@@ -216,7 +306,7 @@ Cr_Caracteristicas integrar(Cr_Control *cr,const Cr_Caracteristicas* arr, int si
 
 
 // Función para medir WAMP (Willison Amplitude)
-Cr_Caracteristicas WAMP(Cr_Control *cr,const Cr_Caracteristicas* arr, int size) {
+Cr_Caracteristicas WAMP(const Cr_Caracteristicas* arr, int size) {
     if (size < 2) return 0;
 
     int wa = 0;
@@ -234,3 +324,4 @@ Cr_Caracteristicas WAMP(Cr_Control *cr,const Cr_Caracteristicas* arr, int size) 
 
 
 /* == FIN DE RUTINAS DE INTERFAZ == */
+
