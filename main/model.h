@@ -33,7 +33,7 @@ char IA_Inicie (IA_Control *ia, algoritmo   modelo);
 void IA_Procese (IA_Control *ia);
 
 /* ===== RUTINAS DE INTERFAZ ====== */
-char IA_Predict(IA_Control *ia, float x[84]);
+char IA_Predict(IA_Control *ia, float x[96]);
 
 /* == FIN DE RUTINAS DE INTERFAZ == */
 

@@ -52,6 +52,7 @@ void EMG_Procese (EMG_Control *emg){
    }
 
    // Imprimir los valores de las salidas de los 8 canales
+   /*
     for (int i = 0; i < NUM_CHANNELS; i++) {
         Serial.print(outputSignals[i], 4);
         if(i!=NUM_CHANNELS-1){
@@ -61,6 +62,8 @@ void EMG_Procese (EMG_Control *emg){
         }
         
     }
+
+    */
     
    
 };

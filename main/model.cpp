@@ -1,6 +1,6 @@
 /* model.c    implementaci�n del módulo Display */
 
-#include "BioAmp0.h"
+#include "BioAmpJT0.h"
 #include <Arduino.h>
 #include <tflm_esp32.h>
 #include <eloquent_tinyml.h>
@@ -23,10 +23,15 @@ char IA_Inicie (IA_Control *ia, algoritmo   modelo)
 
     ia->modelo = modelo;
 
-    tf.setNumInputs(84);
+    tf.setNumInputs(96);
     tf.setNumOutputs(6);
+
+    tf.resolver.AddLogistic();
+    tf.resolver.AddTanh();
+    tf.resolver.AddSoftmax();
+    tf.resolver.AddFullyConnected();
  
-    if (!tf.begin(BioAmp0).isOk()){
+    if (!tf.begin(BioAmpJT0).isOk()){
       Serial.println(tf.exception.toString());
       return NO;
     } 
@@ -45,7 +50,7 @@ void IA_Procese (IA_Control *ia){
 
 /* ===== RUTINAS DE INTERFAZ ====== */
 /* Rutina para activar un canal. Indica si se pudo activar. */
- char IA_Predict(IA_Control *ia, float x[84]){
+ char IA_Predict(IA_Control *ia, float x[96]){
 
   if (!tf.predict(x).isOk()) {
         Serial.println(tf.exception.toString());
