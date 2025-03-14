@@ -66,7 +66,7 @@ void loop(){
 
   if (Tm_Hubo_periodo(&c_tiempo,0)){
 
-    //Dp_Procese (&c_display);
+    Dp_Procese (&c_display);
     Tm_Baje_periodo(&c_tiempo,0);
     //Serial.println(millis());
   }

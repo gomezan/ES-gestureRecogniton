@@ -37,41 +37,28 @@ void Sg_Procese (Sg_Control *sg){
   Bf_Libre(&c_buff, 0, &ltr);
   int fill=SIZE_BUFFER-ltr;
 
-
-  if(fill>=WINDOW_SIZE){
-
-    void Sg_Procese (Sg_Control *sg){
-
-      Bf_pointer ltr;
-      Bf_Libre(&c_buff, 0, &ltr);
-      int fill=SIZE_BUFFER-ltr;
-    
-    
-      if(fill>=WINDOW_SIZE){
-    
-        for (int j=0; j< WINDOW_SIZE; j++){
-    
-          for (int i = 0; i <  NUM_CHANNELS; i++)  
-          Bf_Bajar_Dato(&c_buff,i, (Bf_data*)&sg->wnd[i].canal[j]);
-            
-        }
-    
-        // Imprimir los valores de las salidas de los 8 canales
-        /*
-            for (int i=0;i<NUM_CHANNELS;i++){
-              for(int j=0;j<WINDOW_SIZE;j++){
-              Serial.print(sg->wnd[i].canal[j]);
-              Serial.print(",");
-            }
-              Serial.println();
-            }
-        */
-      }
-    };
-
-  }
+    if(fill>=WINDOW_SIZE){
   
-   
+      for (int j=0; j< WINDOW_SIZE; j++){
+  
+        for (int i = 0; i <  NUM_CHANNELS; i++)  
+        Bf_Bajar_Dato(&c_buff,i, (Bf_data*)&sg->wnd[i].canal[j]);
+          
+      }
+
+    Cr_Procese(&c_car);
+
+      // Imprimir los valores de las salidas de los 8 canales
+      /*
+          for (int i=0;i<NUM_CHANNELS;i++){
+            for(int j=0;j<WINDOW_SIZE;j++){
+            Serial.print(sg->wnd[i].canal[j]);
+            Serial.print(",");
+          }
+            Serial.println();
+          }
+      */
+    }
 };
 
 

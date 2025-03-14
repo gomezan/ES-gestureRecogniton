@@ -2,7 +2,9 @@
 
 #include <Caracterizador.h>
 #include "Varios.h"
+#include "model.h"
 
+extern IA_Control c_modelo;
 
 char Cr_Inicie(Cr_Control *cr, Sg_canalData *wnd, Cr_Caracteristicas *vec) {
     cr->wnd = wnd;
@@ -124,8 +126,7 @@ void Cr_Procese(Cr_Control *cr) {
             cr->vec[index++] = val;
         }
     }
-
-    
+  IA_Predict(&c_modelo, (float*)cr->vec);  
 }
 
 
