@@ -126,7 +126,7 @@ void Cr_Procese(Cr_Control *cr) {
             cr->vec[index++] = val;
         }
     }
-  IA_Predict(&c_modelo, (float*)cr->vec);  
+  IA_Predict(&c_modelo);  
 }
 
 

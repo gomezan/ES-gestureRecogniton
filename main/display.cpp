@@ -27,7 +27,7 @@ char Dp_Inicie (Dp_Control *dp,
 /* Rutina para procesar el módulo (dentro del loop de polling) */				
 void Dp_Procese (Dp_Control *dp){
 
-    Serial.println(dp->prediction);
+    //Serial.println(dp->prediction);
    
    };
 

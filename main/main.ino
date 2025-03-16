@@ -44,7 +44,7 @@ void setup() {
   //Inicializar display
   Dp_Inicie(&c_display, 0);
   //inicializar modelo
-  IA_Inicie(&c_modelo, NN);
+  IA_Inicie(&c_modelo, NN, veChar);
   //  Inicializar modulo de lectura de señales sEMG
   EMG_Inicie(&c_emg, 1, estados_tn, estados_pb);
   //Inicializar buffer de datos
@@ -96,7 +96,7 @@ void loop(){
  /*
   int a =millis();
   if((a>10000)&&(a<10005)){
-       IA_Predict(&c_modelo,x2);
+       IA_Predict(&c_modelo);
   }
   */   
 

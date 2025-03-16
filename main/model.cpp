@@ -1,40 +1,29 @@
 /* model.c    implementaci�n del módulo Display */
 
-#include "BioAmpJT0.h"
-#include <Arduino.h>
-#include <tflm_esp32.h>
-#include <eloquent_tinyml.h>
 
 #include "model.h"
 #include <Tiempo.h>
 #include <display.h>
 #include "Varios.h"
 
+#include <GestureClassification_inferencing.h>
+
 //modulos principales 
 extern Tm_Control c_tiempo;
 extern Dp_Control c_display;
 
 // Definición de modelos Eloquent
-Eloquent::TF::Sequential<TF_NUM_OPS, ARENA_SIZE> tf;
+int raw_feature_get_data(size_t offset, size_t length, float *out_ptr);
+void print_inference_result(ei_impulse_result_t result);
+uint16_t get_top_prediction(ei_impulse_result_t result);
 
 /* Rutina para iniciar el módulo (su estructura de datos) */   
-char IA_Inicie (IA_Control *ia, algoritmo   modelo)
+char IA_Inicie (IA_Control *ia, algoritmo   modelo, Cr_Caracteristicas *features)
    {
 
     ia->modelo = modelo;
 
-    tf.setNumInputs(96);
-    tf.setNumOutputs(6);
-
-    tf.resolver.AddLogistic();
-    tf.resolver.AddTanh();
-    tf.resolver.AddSoftmax();
-    tf.resolver.AddFullyConnected();
- 
-    if (!tf.begin(BioAmpJT0).isOk()){
-      Serial.println(tf.exception.toString());
-      return NO;
-    } 
+    ia->features=features;
         
    return SI;
    };
@@ -48,16 +37,108 @@ void IA_Procese (IA_Control *ia){
    
    };
 
+
+
+void print_inference_result(ei_impulse_result_t result) {
+
+    // Print how long it took to perform inference
+    ei_printf("Timing: DSP %d ms, inference %d ms, anomaly %d ms\r\n",
+            result.timing.dsp,
+            result.timing.classification,
+            result.timing.anomaly);
+
+    // Print the prediction results (object detection)
+#if EI_CLASSIFIER_OBJECT_DETECTION == 1
+    ei_printf("Object detection bounding boxes:\r\n");
+    for (uint32_t i = 0; i < result.bounding_boxes_count; i++) {
+        ei_impulse_result_bounding_box_t bb = result.bounding_boxes[i];
+        if (bb.value == 0) {
+            continue;
+        }
+        ei_printf("  %s (%f) [ x: %u, y: %u, width: %u, height: %u ]\r\n",
+                bb.label,
+                bb.value,
+                bb.x,
+                bb.y,
+                bb.width,
+                bb.height);
+    }
+
+    // Print the prediction results (classification)
+#else
+    ei_printf("Predictions:\r\n");
+    for (uint16_t i = 0; i < EI_CLASSIFIER_LABEL_COUNT; i++) {
+        ei_printf("  %s: ", ei_classifier_inferencing_categories[i]);
+        ei_printf("%.5f\r\n", result.classification[i].value);
+    }
+#endif
+
+    // Print anomaly result (if it exists)
+#if EI_CLASSIFIER_HAS_ANOMALY
+    ei_printf("Anomaly prediction: %.3f\r\n", result.anomaly);
+#endif
+
+#if EI_CLASSIFIER_HAS_VISUAL_ANOMALY
+    ei_printf("Visual anomalies:\r\n");
+    for (uint32_t i = 0; i < result.visual_ad_count; i++) {
+        ei_impulse_result_bounding_box_t bb = result.visual_ad_grid_cells[i];
+        if (bb.value == 0) {
+            continue;
+        }
+        ei_printf("  %s (%f) [ x: %u, y: %u, width: %u, height: %u ]\r\n",
+                bb.label,
+                bb.value,
+                bb.x,
+                bb.y,
+                bb.width,
+                bb.height);
+    }
+#endif
+
+}
+
+uint16_t get_top_prediction(ei_impulse_result_t result) {
+    uint16_t top_index = 0;
+    float max_value = result.classification[0].value;
+
+    // Buscar el índice con la mayor probabilidad
+    for (uint16_t i = 1; i < EI_CLASSIFIER_LABEL_COUNT; i++) {
+        if (result.classification[i].value > max_value) {
+            max_value = result.classification[i].value;
+            top_index = i;
+        }
+    }
+
+    // Devolver la clase con mayor probabilidad
+    return top_index;
+}
+
 /* ===== RUTINAS DE INTERFAZ ====== */
 /* Rutina para activar un canal. Indica si se pudo activar. */
- char IA_Predict(IA_Control *ia, float x[96]){
+ char IA_Predict(IA_Control *ia){
 
-  if (!tf.predict(x).isOk()) {
-        Serial.println(tf.exception.toString());
+  ei_impulse_result_t result = { 0 };
+
+  // Definir la función de obtención de datos
+    auto get_feature_data = [&ia](size_t offset, size_t length, float *out_ptr) -> int {
+        memcpy(out_ptr, const_cast<float*>(ia->features + offset), length * sizeof(float));
+        return 0;
+    };
+
+  signal_t features_signal;
+  features_signal.total_length = NUM_CHANNELS*NUM_CAR;  // Longitud total de características
+  features_signal.get_data = get_feature_data; 
+
+    EI_IMPULSE_ERROR res = run_classifier(&features_signal, &(result), false /* debug */);
+    if (res != EI_IMPULSE_OK) {
+        ei_printf("ERR: Failed to run classifier (%d)\n", res);
         return NO;
     }
 
-    Dp_updatePrediction(&c_display,tf.classification);
+   uint16_t pred=get_top_prediction( result);
+   //print_inference_result( result);
+  
+   Dp_updatePrediction(&c_display,pred);
     return SI;  
 
  }
