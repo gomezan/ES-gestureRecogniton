@@ -33,17 +33,17 @@ void Cr_Procese (Cr_Control *cr);
 Cr_FuncionCaracteristica Cr_CrearFuncion(Cr_Caracteristicas (*f)(const Cr_Caracteristicas*, int), Cr_Caracteristicas min, Cr_Caracteristicas max);
 
 Cr_Caracteristicas suma(const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas promedio(const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas rms(const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas varianza(const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas desviacion_estandar(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas Promedio(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas RMS(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas Varianza(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas STD(const Cr_Caracteristicas* arr, int size);
 Cr_Caracteristicas MAV(const Cr_Caracteristicas* arr, int size);
 Cr_Caracteristicas WL(const Cr_Caracteristicas* arr, int size);
 Cr_Caracteristicas ZC(const Cr_Caracteristicas* arr, int size);
 Cr_Caracteristicas SSC(const Cr_Caracteristicas* arr, int size);
 Cr_Caracteristicas skewness(const Cr_Caracteristicas* arr, int size);
 Cr_Caracteristicas kurtosis(const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas integrar(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas iEMG(const Cr_Caracteristicas* arr, int size);
 Cr_Caracteristicas WAMP(const Cr_Caracteristicas* arr, int size);
 
 #endif
