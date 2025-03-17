@@ -138,12 +138,13 @@ uint16_t get_top_prediction(ei_impulse_result_t result) {
    uint16_t pred=get_top_prediction( result);
    //print_inference_result( result);
 
-    for(int j=0;j<NUM_CHANNELS*NUM_CAR;j++){
+    /*for(int j=0;j<NUM_CHANNELS*NUM_CAR;j++){
       Serial.print(ia->features[j]);
       Serial.print(",");
     }
     Serial.println();
     Serial.println(pred);
+  */
   
    Dp_updatePrediction(&c_display,pred);
     return SI;  

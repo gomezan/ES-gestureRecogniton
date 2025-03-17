@@ -2,13 +2,15 @@
 
 #include <Caracterizador.h>
 #include "Varios.h"
+#include "model.h"
 
+extern IA_Control c_modelo;
 
 char Cr_Inicie(Cr_Control *cr, Sg_canalData *wnd, Cr_Caracteristicas *vec) {
     cr->wnd = wnd;
     cr->vec = vec;
 
-    cr->funciones[0][0] = Cr_CrearFuncion(RMS, 0.0380157638850652, 467.3821676197466104);
+        cr->funciones[0][0] = Cr_CrearFuncion(RMS, 0.0380157638850652, 467.3821676197466104);
         cr->funciones[1][0] = Cr_CrearFuncion(RMS, 5.3916707780954214, 359.6012505440169775);
         cr->funciones[2][0] = Cr_CrearFuncion(RMS, 0.0033569186161588, 689.3975006170871893);
         cr->funciones[3][0] = Cr_CrearFuncion(RMS, 10.1197107424910993, 938.2479806079644504);
@@ -123,6 +125,8 @@ void Cr_Procese(Cr_Control *cr) {
             }
             cr->vec[index++] = val;
         }
+
+        IA_Predict(&c_modelo);
     }
 }
 
