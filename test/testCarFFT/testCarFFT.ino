@@ -48,9 +48,12 @@ void loop(){
   }
 */
 
-//float inicio=millis();
+float inicio=micros();
 Cr_Procese(&c_car);
+float fin=micros();
+Serial.println(fin-inicio);
 
+/*
   Serial.println("Ventanas:");
   for (int i=0;i<NUM_CHANNELS;i++){
     for(int j=0;j<WINDOW_SIZE;j++){
@@ -59,17 +62,16 @@ Cr_Procese(&c_car);
     }
     Serial.println();
   }
-  
+*/
+/*  
   Serial.println("Caracteristicas:");
   for(int j=0;j<NUM_CHANNELS*(NUM_CAR_T+NUM_CAR_F);j++){
       Serial.print(veChar[j]);
     Serial.print(",");
   }
   Serial.println();
+*/
 
-//float fin=millis();
-//Serial.println(fin-inicio);
 delay(1000);
-
 
 }
