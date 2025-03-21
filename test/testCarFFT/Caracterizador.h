@@ -1,73 +1,76 @@
-/* Caracterizador.h    Definiciones del m�dulo de extracción de caracteristicas */
-#if !defined(CARACTERIZADOR_H)
+/* Caracterizador_mod.h    Definiciones del módulo de extracción de caracteristicas */
 
+#if !defined(CARACTERIZADOR_H)
 #define  CARACTERIZADOR_H
 
 #include "Segmentador.h"
-#include <arduinoFFT.h>
+#include "Varios.h"
 
-//Definición de número de caracteristicas
-#define NUM_CAR 12
+#define NUM_CAR_T 12
+#define NUM_CAR_F 6
+#define WAMP_THRESHOLD 140.0
+#define SAMPLES  128
+#define NUM_CHANNELS 8  // Define number of channels
 
-#define WAMP_THRESHOLD 140.0 // Umbral para la detección de cambios en WAMP
-#define SAMPLES  128 //Window for precessing FFT
-#define FS 500 
-
-
-/* Tipo de dato para vector de caracteristicas */
 typedef float Cr_Caracteristicas;
 
-//Estructura de control del modulo caracterizador
+typedef struct Cr_FuncionCaracteristica Cr_FuncionCaracteristica;
+
+//Estructura para almacenar catactericas de tiempo
+struct Cr_FuncionCaracteristica_time {
+    Cr_Caracteristicas (*func)(const Cr_Caracteristicas*, int);
+    Cr_Caracteristicas min;
+    Cr_Caracteristicas max;
+};
+
+//Estructura para almacenar catactericas de frecuencia
+struct Cr_FuncionCaracteristica_freq {
+    Cr_Caracteristicas (*func)(const Cr_Caracteristicas *);
+    Cr_Caracteristicas min;
+    Cr_Caracteristicas max;
+};
+
 typedef struct Cr_Control Cr_Control;
-struct Cr_Control
-{  
+struct Cr_Control {
 
-  /* Ventana de segmentación */
+    /*Ventana segmentada*/
     volatile Sg_canalData *wnd;
-
-    /* Vector de caracteristicas */
+    /*Vector de caracteristicas*/
     volatile Cr_Caracteristicas *vec;
 
-  /* Arreglo de funciones a usar para extraer caracteristicas */
-  Cr_Caracteristicas (*funciones[NUM_CAR])(Cr_Control *cr,const Cr_Caracteristicas*, int);   
-
-  /*Vectores de funcionamiento de la FFT*/
-  volatile Cr_Caracteristicas *vReal;  
-  volatile Cr_Caracteristicas *vImag;
-
-  /* Create FFT object */
-  ArduinoFFT<Cr_Caracteristicas> FFT;  
-           
+    /*Caracteristicas*/
+    Cr_FuncionCaracteristica_time funcionesTime[NUM_CHANNELS][NUM_CAR_T];
+    Cr_FuncionCaracteristica_freq funcionesFreq[NUM_CHANNELS][NUM_CAR_F];
 };
-   
-/* ======= Rutinas ======== */
-/* Rutina para iniciar el módulo (su estructura de datos) */   
-char Cr_Inicie (Cr_Control *cr, Sg_canalData *wnd, Cr_Caracteristicas *vec,
-                Cr_Caracteristicas *vReal,
-                Cr_Caracteristicas *vImag,
-                ArduinoFFT<Cr_Caracteristicas> FFT);
-                  
-/* Rutina para procesar el módulo (dentro del loop de polling) */				
+
+char Cr_Inicie (Cr_Control *cr, Sg_canalData *wnd, Cr_Caracteristicas *vec);
+
 void Cr_Procese (Cr_Control *cr);
 
-/* ===== RUTINAS DE INTERFAZ ====== */
-void printVreal(Cr_Control *cr);
-void calcular_FFT(Cr_Control *cr);
-Cr_Caracteristicas suma(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas promedio(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas rms(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas varianza(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas desviacion_estandar(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas MAV(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas WL(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas ZC(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas SSC(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas skewness(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas kurtosis(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas integrar(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas WAMP(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
-Cr_Caracteristicas MAS(Cr_Control *cr,const Cr_Caracteristicas* arr, int size);
+//Agregar caracteristica
+Cr_FuncionCaracteristica_time Cr_CrearFuncion_time(Cr_Caracteristicas (*f)(const Cr_Caracteristicas*, int), Cr_Caracteristicas min, Cr_Caracteristicas max);
+Cr_FuncionCaracteristica_freq Cr_CrearFuncion_freq(Cr_Caracteristicas (*f)(const Cr_Caracteristicas*), Cr_Caracteristicas min, Cr_Caracteristicas max);
 
-/* == FIN DE RUTINAS DE INTERFAZ == */
+
+//Caracteristicas
+Cr_Caracteristicas suma(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas Promedio(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas RMS(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas Varianza(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas STD(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas MAV(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas WL(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas ZC(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas SSC(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas skewness(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas kurtosis(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas iEMG(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas WAMP(const Cr_Caracteristicas* arr, int size);
+Cr_Caracteristicas PF(const Cr_Caracteristicas* arr);
+Cr_Caracteristicas PM(const Cr_Caracteristicas* arr);
+Cr_Caracteristicas MNM(const Cr_Caracteristicas* arr);
+Cr_Caracteristicas MNF(const Cr_Caracteristicas* arr);
+Cr_Caracteristicas MDM(const Cr_Caracteristicas* arr);
+Cr_Caracteristicas MDF(const Cr_Caracteristicas* arr);
 
 #endif
