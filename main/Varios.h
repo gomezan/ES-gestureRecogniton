@@ -10,7 +10,10 @@
 #define NO	0
 #define TRUE  1
 #define FALSE 0
+
+/* Valores globales */
 #define NUM_CHANNELS 8
+#define FS 500
 
 
 #endif

@@ -12,7 +12,7 @@
 #define FALSE 0
 
 /* Valores globales */
-#define NUM_CHANNELS 8
+#define NUM_CHANNELS 6
 #define FS 500
 
 #endif

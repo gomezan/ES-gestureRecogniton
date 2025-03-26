@@ -6,11 +6,10 @@
 #include "Segmentador.h"
 #include "Varios.h"
 
-#define NUM_CAR_T 12
+#define NUM_CAR_T 9
 #define NUM_CAR_F 6
 #define WAMP_THRESHOLD 140.0
 #define SAMPLES  128
-#define NUM_CHANNELS 8  // Define number of channels
 
 typedef float Cr_Caracteristicas;
 

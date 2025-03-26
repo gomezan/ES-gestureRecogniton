@@ -30,7 +30,7 @@ EMG_TopNotchFilterState estados_tn[NUM_CHANNELS];
 Sg_canalData data[NUM_CHANNELS];
 
 /* vector de cataceristicas*/
-Cr_Caracteristicas veChar[NUM_CHANNELS*NUM_CAR]; 
+Cr_Caracteristicas veChar[NUM_CHANNELS*(NUM_CAR_T+NUM_CAR_F)]; 
 
 
 void setup() {

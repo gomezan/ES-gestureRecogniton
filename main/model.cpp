@@ -126,7 +126,7 @@ uint16_t get_top_prediction(ei_impulse_result_t result) {
     };
 
   signal_t features_signal;
-  features_signal.total_length = NUM_CHANNELS*NUM_CAR;  // Longitud total de características
+  features_signal.total_length = NUM_CHANNELS*(NUM_CAR_T + NUM_CAR_F);  // Longitud total de características
   features_signal.get_data = get_feature_data; 
 
     EI_IMPULSE_ERROR res = run_classifier(&features_signal, &(result), false /* debug */);

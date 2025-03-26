@@ -7,7 +7,7 @@
 #include <model.h>
 
 #define NUM_MUERTO 0x10  /// Apagado
-#define PERIODO_BASE 50 // Programado a 10 Hz
+#define PERIODO_BASE 5 // Programado a 100 Hz
 
 //Estructura de control del display
 typedef struct Dp_Control Dp_Control;

@@ -22,40 +22,41 @@ char Cr_Inicie (Cr_Control *cr,
         cr->funcionesTime[3][0] = Cr_CrearFuncion_time(RMS, 10.1197107424910993, 938.2479806079644504);
         cr->funcionesTime[4][0] = Cr_CrearFuncion_time(RMS, 7.1900358335505468, 1087.8723795586010965);
         cr->funcionesTime[5][0] = Cr_CrearFuncion_time(RMS, 0.0391189639848628, 1084.1388323450107691);
-        cr->funcionesTime[6][0] = Cr_CrearFuncion_time(RMS, 0.1399013676249442, 1157.7550033289351177);
-        cr->funcionesTime[7][0] = Cr_CrearFuncion_time(RMS, 0.0405365180076148, 1003.0867144580033710);
+        //cr->funcionesTime[6][0] = Cr_CrearFuncion_time(RMS, 0.1399013676249442, 1157.7550033289351177);
+        //cr->funcionesTime[7][0] = Cr_CrearFuncion_time(RMS, 0.0405365180076148, 1003.0867144580033710);
         cr->funcionesTime[0][1] = Cr_CrearFuncion_time(STD, 0.0380110243421893, 467.3559716946747926);
         cr->funcionesTime[1][1] = Cr_CrearFuncion_time(STD, 5.3915321325716228, 359.6006662473003530);
         cr->funcionesTime[2][1] = Cr_CrearFuncion_time(STD, 0.0033565130158372, 689.3833278782722118);
         cr->funcionesTime[3][1] = Cr_CrearFuncion_time(STD, 10.1192311600775966, 937.9667394730088290);
         cr->funcionesTime[4][1] = Cr_CrearFuncion_time(STD, 7.1896190599402399, 1087.7737821145015005);
         cr->funcionesTime[5][1] = Cr_CrearFuncion_time(STD, 0.0390988280110037, 1083.9343730001644417);
-        cr->funcionesTime[6][1] = Cr_CrearFuncion_time(STD, 0.1398820409674704, 1157.7482240953891051);
-        cr->funcionesTime[7][1] = Cr_CrearFuncion_time(STD, 0.0405309062711781, 1003.0457528817183857);
+        //cr->funcionesTime[6][1] = Cr_CrearFuncion_time(STD, 0.1398820409674704, 1157.7482240953891051);
+        //cr->funcionesTime[7][1] = Cr_CrearFuncion_time(STD, 0.0405309062711781, 1003.0457528817183857);
         cr->funcionesTime[0][2] = Cr_CrearFuncion_time(Varianza, 0.0014448379715425, 218421.6042786736798007);
         cr->funcionesTime[1][2] = Cr_CrearFuncion_time(Varianza, 29.0686187365523026, 129312.6391655023180647);
         cr->funcionesTime[2][2] = Cr_CrearFuncion_time(Varianza, 0.0000112661796255, 475249.3727565212757327);
         cr->funcionesTime[3][2] = Cr_CrearFuncion_time(Varianza, 102.3988392710853645, 879781.6043576274532825);
         cr->funcionesTime[4][2] = Cr_CrearFuncion_time(Varianza, 51.6906222270559752, 1183251.8010556877125055);
         cr->funcionesTime[5][2] = Cr_CrearFuncion_time(Varianza, 0.0015287183518340, 1174913.7249712597113103);
-        cr->funcionesTime[6][2] = Cr_CrearFuncion_time(Varianza, 0.0195669853852250, 1340380.9503960271831602);
-        cr->funcionesTime[7][2] = Cr_CrearFuncion_time(Varianza, 0.0016427543631630, 1006100.7823740531457588);
+        //cr->funcionesTime[6][2] = Cr_CrearFuncion_time(Varianza, 0.0195669853852250, 1340380.9503960271831602);
+        //cr->funcionesTime[7][2] = Cr_CrearFuncion_time(Varianza, 0.0016427543631630, 1006100.7823740531457588);
         cr->funcionesTime[0][3] = Cr_CrearFuncion_time(MAV, 0.0334222599914291, 395.7445301264584145);
         cr->funcionesTime[1][3] = Cr_CrearFuncion_time(MAV, 4.1311097321445009, 291.9571220625174988);
         cr->funcionesTime[2][3] = Cr_CrearFuncion_time(MAV, 0.0029242985152203, 534.6184842970219506);
         cr->funcionesTime[3][3] = Cr_CrearFuncion_time(MAV, 7.9201104886389260, 785.8234524640337213);
         cr->funcionesTime[4][3] = Cr_CrearFuncion_time(MAV, 5.0561411876202378, 865.0762430883910383);
         cr->funcionesTime[5][3] = Cr_CrearFuncion_time(MAV, 0.0318427636907003, 842.1513125972486478);
-        cr->funcionesTime[6][3] = Cr_CrearFuncion_time(MAV, 0.1207054539933775, 880.2506060805848165);
-        cr->funcionesTime[7][3] = Cr_CrearFuncion_time(MAV, 0.0355684596589490, 815.6979886430636952);
+        //cr->funcionesTime[6][3] = Cr_CrearFuncion_time(MAV, 0.1207054539933775, 880.2506060805848165);
+        //cr->funcionesTime[7][3] = Cr_CrearFuncion_time(MAV, 0.0355684596589490, 815.6979886430636952);
         cr->funcionesTime[0][4] = Cr_CrearFuncion_time(WL, 6.5644444741290799, 55682.6880945506563876);
         cr->funcionesTime[1][4] = Cr_CrearFuncion_time(WL, 541.4729254925838404, 45347.9286915119228070);
         cr->funcionesTime[2][4] = Cr_CrearFuncion_time(WL, 0.4586833890333783, 62271.1308118147935602);
         cr->funcionesTime[3][4] = Cr_CrearFuncion_time(WL, 1110.0301724970609030, 113627.8052920474729035);
         cr->funcionesTime[4][4] = Cr_CrearFuncion_time(WL, 805.1844282632732757, 138187.7730648851429578);
         cr->funcionesTime[5][4] = Cr_CrearFuncion_time(WL, 6.1587876873679992, 103638.8377840595203452);
-        cr->funcionesTime[6][4] = Cr_CrearFuncion_time(WL, 23.6631861170839315, 129113.6616642828448676);
-        cr->funcionesTime[7][4] = Cr_CrearFuncion_time(WL, 6.9794991445949570, 135978.8389005836797878);
+        //cr->funcionesTime[6][4] = Cr_CrearFuncion_time(WL, 23.6631861170839315, 129113.6616642828448676);
+        //cr->funcionesTime[7][4] = Cr_CrearFuncion_time(WL, 6.9794991445949570, 135978.8389005836797878);
+        /*
         cr->funcionesTime[0][5] = Cr_CrearFuncion_time(Promedio, -34.0814742083912634, 33.1052897078743413);
         cr->funcionesTime[1][5] = Cr_CrearFuncion_time(Promedio, -14.4210813226712844, 11.6153170914179515);
         cr->funcionesTime[2][5] = Cr_CrearFuncion_time(Promedio, -36.0803851081781985, 34.0868225922039869);
@@ -64,14 +65,16 @@ char Cr_Inicie (Cr_Control *cr,
         cr->funcionesTime[5][5] = Cr_CrearFuncion_time(Promedio, -62.0156817196770831, 54.4040499404158595);
         cr->funcionesTime[6][5] = Cr_CrearFuncion_time(Promedio, -74.4430298522780021, 56.8561533965116723);
         cr->funcionesTime[7][5] = Cr_CrearFuncion_time(Promedio, -33.7629877797797775, 40.2054252433497936);
-        cr->funcionesTime[0][6] = Cr_CrearFuncion_time(ZC, 10.0000000000000000, 99.0000000000000000);
-        cr->funcionesTime[1][6] = Cr_CrearFuncion_time(ZC, 13.0000000000000000, 83.0000000000000000);
-        cr->funcionesTime[2][6] = Cr_CrearFuncion_time(ZC, 9.0000000000000000, 99.0000000000000000);
-        cr->funcionesTime[3][6] = Cr_CrearFuncion_time(ZC, 9.0000000000000000, 91.0000000000000000);
-        cr->funcionesTime[4][6] = Cr_CrearFuncion_time(ZC, 14.0000000000000000, 91.0000000000000000);
-        cr->funcionesTime[5][6] = Cr_CrearFuncion_time(ZC, 9.0000000000000000, 99.0000000000000000);
-        cr->funcionesTime[6][6] = Cr_CrearFuncion_time(ZC, 10.0000000000000000, 99.0000000000000000);
-        cr->funcionesTime[7][6] = Cr_CrearFuncion_time(ZC, 11.0000000000000000, 99.0000000000000000);
+        */
+        cr->funcionesTime[0][5] = Cr_CrearFuncion_time(ZC, 10.0000000000000000, 99.0000000000000000);
+        cr->funcionesTime[1][5] = Cr_CrearFuncion_time(ZC, 13.0000000000000000, 83.0000000000000000);
+        cr->funcionesTime[2][5] = Cr_CrearFuncion_time(ZC, 9.0000000000000000, 99.0000000000000000);
+        cr->funcionesTime[3][5] = Cr_CrearFuncion_time(ZC, 9.0000000000000000, 91.0000000000000000);
+        cr->funcionesTime[4][5] = Cr_CrearFuncion_time(ZC, 14.0000000000000000, 91.0000000000000000);
+        cr->funcionesTime[5][5] = Cr_CrearFuncion_time(ZC, 9.0000000000000000, 99.0000000000000000);
+        //cr->funcionesTime[6][5] = Cr_CrearFuncion_time(ZC, 10.0000000000000000, 99.0000000000000000);
+        //cr->funcionesTime[7][5] = Cr_CrearFuncion_time(ZC, 11.0000000000000000, 99.0000000000000000);
+        /*
         cr->funcionesTime[0][7] = Cr_CrearFuncion_time(kurtosis, -1.9863222456777987, 37.3440814957047067);
         cr->funcionesTime[1][7] = Cr_CrearFuncion_time(kurtosis, -1.1860137100071722, 82.2649951955910694);
         cr->funcionesTime[2][7] = Cr_CrearFuncion_time(kurtosis, -1.9889582568097119, 70.1129395438810121);
@@ -80,14 +83,16 @@ char Cr_Inicie (Cr_Control *cr,
         cr->funcionesTime[5][7] = Cr_CrearFuncion_time(kurtosis, -1.9859837323986649, 82.9621977328555431);
         cr->funcionesTime[6][7] = Cr_CrearFuncion_time(kurtosis, -1.9817790875162491, 90.1783739685893835);
         cr->funcionesTime[7][7] = Cr_CrearFuncion_time(kurtosis, -1.9789339995081401, 88.3452682312554316);
-        cr->funcionesTime[0][8] = Cr_CrearFuncion_time(skewness, -3.2162712292690401, 4.9187105543699596);
-        cr->funcionesTime[1][8] = Cr_CrearFuncion_time(skewness, -6.8200997944648396, 8.8466922977008160);
-        cr->funcionesTime[2][8] = Cr_CrearFuncion_time(skewness, -7.8947545951659777, 7.2862134061642223);
-        cr->funcionesTime[3][8] = Cr_CrearFuncion_time(skewness, -7.6652106783009817, 7.8837651818651695);
-        cr->funcionesTime[4][8] = Cr_CrearFuncion_time(skewness, -7.8530425704857008, 7.3819555175608800);
-        cr->funcionesTime[5][8] = Cr_CrearFuncion_time(skewness, -6.1129939427169804, 8.9170241272339563);
-        cr->funcionesTime[6][8] = Cr_CrearFuncion_time(skewness, -9.4902571593379115, 5.4442614654727350);
-        cr->funcionesTime[7][8] = Cr_CrearFuncion_time(skewness, -9.3262550589051472, 7.8261073058462571);
+        */
+        cr->funcionesTime[0][6] = Cr_CrearFuncion_time(skewness, -3.2162712292690401, 4.9187105543699596);
+        cr->funcionesTime[1][6] = Cr_CrearFuncion_time(skewness, -6.8200997944648396, 8.8466922977008160);
+        cr->funcionesTime[2][6] = Cr_CrearFuncion_time(skewness, -7.8947545951659777, 7.2862134061642223);
+        cr->funcionesTime[3][6] = Cr_CrearFuncion_time(skewness, -7.6652106783009817, 7.8837651818651695);
+        cr->funcionesTime[4][6] = Cr_CrearFuncion_time(skewness, -7.8530425704857008, 7.3819555175608800);
+        cr->funcionesTime[5][6] = Cr_CrearFuncion_time(skewness, -6.1129939427169804, 8.9170241272339563);
+        //cr->funcionesTime[6][6] = Cr_CrearFuncion_time(skewness, -9.4902571593379115, 5.4442614654727350);
+        //cr->funcionesTime[7][6] = Cr_CrearFuncion_time(skewness, -9.3262550589051472, 7.8261073058462571);
+        /*
         cr->funcionesTime[0][9] = Cr_CrearFuncion_time(iEMG, -3565.7523982924681150, 3010.0600490780461769);
         cr->funcionesTime[1][9] = Cr_CrearFuncion_time(iEMG, -1500.9145027741310514, 1197.7252983398063861);
         cr->funcionesTime[2][9] = Cr_CrearFuncion_time(iEMG, -3539.7147712973637681, 3110.7433968026739421);
@@ -96,22 +101,23 @@ char Cr_Inicie (Cr_Control *cr,
         cr->funcionesTime[5][9] = Cr_CrearFuncion_time(iEMG, -6005.6849099681594453, 5519.5407740847476816);
         cr->funcionesTime[6][9] = Cr_CrearFuncion_time(iEMG, -8096.0266785280673503, 5392.2298324425592000);
         cr->funcionesTime[7][9] = Cr_CrearFuncion_time(iEMG, -3284.3014592292879570, 3290.6943947021177337);
-        cr->funcionesTime[0][10] = Cr_CrearFuncion_time(SSC, 10.0000000000000000, 99.0000000000000000);
-        cr->funcionesTime[1][10] = Cr_CrearFuncion_time(SSC, 13.0000000000000000, 83.0000000000000000);
-        cr->funcionesTime[2][10] = Cr_CrearFuncion_time(SSC, 9.0000000000000000, 99.0000000000000000);
-        cr->funcionesTime[3][10] = Cr_CrearFuncion_time(SSC, 9.0000000000000000, 91.0000000000000000);
-        cr->funcionesTime[4][10] = Cr_CrearFuncion_time(SSC, 14.0000000000000000, 91.0000000000000000);
-        cr->funcionesTime[5][10] = Cr_CrearFuncion_time(SSC, 9.0000000000000000, 99.0000000000000000);
-        cr->funcionesTime[6][10] = Cr_CrearFuncion_time(SSC, 10.0000000000000000, 99.0000000000000000);
-        cr->funcionesTime[7][10] = Cr_CrearFuncion_time(SSC, 11.0000000000000000, 99.0000000000000000);
-        cr->funcionesTime[0][11] = Cr_CrearFuncion_time(WAMP, 0.0000000000000000, 95.0000000000000000);
-        cr->funcionesTime[1][11] = Cr_CrearFuncion_time(WAMP, 0.0000000000000000, 92.0000000000000000);
-        cr->funcionesTime[2][11] = Cr_CrearFuncion_time(WAMP, 0.0000000000000000, 90.0000000000000000);
-        cr->funcionesTime[3][11] = Cr_CrearFuncion_time(WAMP, 0.0000000000000000, 94.0000000000000000);
-        cr->funcionesTime[4][11] = Cr_CrearFuncion_time(WAMP, 0.0000000000000000, 99.0000000000000000);
-        cr->funcionesTime[5][11] = Cr_CrearFuncion_time(WAMP, 0.0000000000000000, 97.0000000000000000);
-        cr->funcionesTime[6][11] = Cr_CrearFuncion_time(WAMP, 0.0000000000000000, 96.0000000000000000);
-        cr->funcionesTime[7][11] = Cr_CrearFuncion_time(WAMP, 0.0000000000000000, 94.0000000000000000);
+        */
+        cr->funcionesTime[0][7] = Cr_CrearFuncion_time(SSC, 10.0000000000000000, 99.0000000000000000);
+        cr->funcionesTime[1][7] = Cr_CrearFuncion_time(SSC, 13.0000000000000000, 83.0000000000000000);
+        cr->funcionesTime[2][7] = Cr_CrearFuncion_time(SSC, 9.0000000000000000, 99.0000000000000000);
+        cr->funcionesTime[3][7] = Cr_CrearFuncion_time(SSC, 9.0000000000000000, 91.0000000000000000);
+        cr->funcionesTime[4][7] = Cr_CrearFuncion_time(SSC, 14.0000000000000000, 91.0000000000000000);
+        cr->funcionesTime[5][7] = Cr_CrearFuncion_time(SSC, 9.0000000000000000, 99.0000000000000000);
+        //cr->funcionesTime[6][7] = Cr_CrearFuncion_time(SSC, 10.0000000000000000, 99.0000000000000000);
+        //cr->funcionesTime[7][7] = Cr_CrearFuncion_time(SSC, 11.0000000000000000, 99.0000000000000000);
+        cr->funcionesTime[0][8] = Cr_CrearFuncion_time(WAMP, 0.0000000000000000, 95.0000000000000000);
+        cr->funcionesTime[1][8] = Cr_CrearFuncion_time(WAMP, 0.0000000000000000, 92.0000000000000000);
+        cr->funcionesTime[2][8] = Cr_CrearFuncion_time(WAMP, 0.0000000000000000, 90.0000000000000000);
+        cr->funcionesTime[3][8] = Cr_CrearFuncion_time(WAMP, 0.0000000000000000, 94.0000000000000000);
+        cr->funcionesTime[4][8] = Cr_CrearFuncion_time(WAMP, 0.0000000000000000, 99.0000000000000000);
+        cr->funcionesTime[5][8] = Cr_CrearFuncion_time(WAMP, 0.0000000000000000, 97.0000000000000000);
+        //cr->funcionesTime[6][8] = Cr_CrearFuncion_time(WAMP, 0.0000000000000000, 96.0000000000000000);
+        //cr->funcionesTime[7][8] = Cr_CrearFuncion_time(WAMP, 0.0000000000000000, 94.0000000000000000);
 
         // caracteristicas en el dominio de la frecuencia
         // PF
@@ -121,8 +127,8 @@ char Cr_Inicie (Cr_Control *cr,
         cr->funcionesFreq[3][0] = Cr_CrearFuncion_freq(PF, 11.71875, 246.09375);
         cr->funcionesFreq[4][0] = Cr_CrearFuncion_freq(PF, 15.625, 246.09375);
         cr->funcionesFreq[5][0] = Cr_CrearFuncion_freq(PF, 15.625, 246.09375);
-        cr->funcionesFreq[6][0] = Cr_CrearFuncion_freq(PF, 3.90625, 246.09375);
-        cr->funcionesFreq[7][0] = Cr_CrearFuncion_freq(PF, 11.71875, 246.09375);
+        //cr->funcionesFreq[6][0] = Cr_CrearFuncion_freq(PF, 3.90625, 246.09375);
+        //cr->funcionesFreq[7][0] = Cr_CrearFuncion_freq(PF, 11.71875, 246.09375);
 
         // PM
         cr->funcionesFreq[0][1] = Cr_CrearFuncion_freq(PM, 1.3512054435182814, 18305.34378653413);
@@ -131,8 +137,8 @@ char Cr_Inicie (Cr_Control *cr,
         cr->funcionesFreq[3][1] = Cr_CrearFuncion_freq(PM, 130.7657215288043, 23153.80187604565);
         cr->funcionesFreq[4][1] = Cr_CrearFuncion_freq(PM, 99.95446683609, 34798.13881650924);
         cr->funcionesFreq[5][1] = Cr_CrearFuncion_freq(PM, 1.2690244976398266, 28816.75462112257);
-        cr->funcionesFreq[6][1] = Cr_CrearFuncion_freq(PM, 4.8153920456888, 38391.85545533415);
-        cr->funcionesFreq[7][1] = Cr_CrearFuncion_freq(PM, 1.429190286505528, 19594.830428000307);
+        //cr->funcionesFreq[6][1] = Cr_CrearFuncion_freq(PM, 4.8153920456888, 38391.85545533415);
+        //cr->funcionesFreq[7][1] = Cr_CrearFuncion_freq(PM, 1.429190286505528, 19594.830428000307);
 
         // MNF
         cr->funcionesFreq[0][2] = Cr_CrearFuncion_freq(MNF, 44.56550210641688, 226.236070615309);
@@ -141,8 +147,8 @@ char Cr_Inicie (Cr_Control *cr,
         cr->funcionesFreq[3][2] = Cr_CrearFuncion_freq(MNF, 42.02979184923082, 164.46662092720115);
         cr->funcionesFreq[4][2] = Cr_CrearFuncion_freq(MNF, 59.22539014946914, 173.8220895236365);
         cr->funcionesFreq[5][2] = Cr_CrearFuncion_freq(MNF, 43.41043219848682, 226.4034582221036);
-        cr->funcionesFreq[6][2] = Cr_CrearFuncion_freq(MNF, 48.16643518279269, 226.2809431763998);
-        cr->funcionesFreq[7][2] = Cr_CrearFuncion_freq(MNF, 46.617027512118106, 225.2900053911297);
+        //cr->funcionesFreq[6][2] = Cr_CrearFuncion_freq(MNF, 48.16643518279269, 226.2809431763998);
+        //cr->funcionesFreq[7][2] = Cr_CrearFuncion_freq(MNF, 46.617027512118106, 225.2900053911297);
 
         // MNM
         cr->funcionesFreq[0][3] = Cr_CrearFuncion_freq(MNM, 0.0495165109768681, 2857.940258283264);
@@ -151,8 +157,8 @@ char Cr_Inicie (Cr_Control *cr,
         cr->funcionesFreq[3][3] = Cr_CrearFuncion_freq(MNM, 59.3097132463639, 5971.006828843492);
         cr->funcionesFreq[4][3] = Cr_CrearFuncion_freq(MNM, 7.347062028825186, 6372.754046157354);
         cr->funcionesFreq[5][3] = Cr_CrearFuncion_freq(MNM, 0.0473410412722787, 6245.846273076193);
-        cr->funcionesFreq[6][3] = Cr_CrearFuncion_freq(MNM, 0.1800016157208831, 8324.934849046023);
-        cr->funcionesFreq[7][3] = Cr_CrearFuncion_freq(MNM, 0.0523327944248211, 5900.56820455545);
+        //cr->funcionesFreq[6][3] = Cr_CrearFuncion_freq(MNM, 0.1800016157208831, 8324.934849046023);
+        //cr->funcionesFreq[7][3] = Cr_CrearFuncion_freq(MNM, 0.0523327944248211, 5900.56820455545);
 
         // MDF
         cr->funcionesFreq[0][4] = Cr_CrearFuncion_freq(MDF, 23.4375, 246.09375);
@@ -161,8 +167,8 @@ char Cr_Inicie (Cr_Control *cr,
         cr->funcionesFreq[3][4] = Cr_CrearFuncion_freq(MDF, 23.4375, 195.3125);
         cr->funcionesFreq[4][4] = Cr_CrearFuncion_freq(MDF, 27.34375, 195.3125);
         cr->funcionesFreq[5][4] = Cr_CrearFuncion_freq(MDF, 23.4375, 246.09375);
-        cr->funcionesFreq[6][4] = Cr_CrearFuncion_freq(MDF, 23.4375, 246.09375);
-        cr->funcionesFreq[7][4] = Cr_CrearFuncion_freq(MDF, 27.34375, 246.09375);
+        //cr->funcionesFreq[6][4] = Cr_CrearFuncion_freq(MDF, 23.4375, 246.09375);
+        //cr->funcionesFreq[7][4] = Cr_CrearFuncion_freq(MDF, 27.34375, 246.09375);
 
         // MDM
         cr->funcionesFreq[0][5] = Cr_CrearFuncion_freq(MDM, 0.010489351731154, 2713.186898629065);
@@ -171,8 +177,8 @@ char Cr_Inicie (Cr_Control *cr,
         cr->funcionesFreq[3][5] = Cr_CrearFuncion_freq(MDM, 44.920385232728506, 5988.0419189624);
         cr->funcionesFreq[4][5] = Cr_CrearFuncion_freq(MDM, 2.81830878999725, 5828.958167650018);
         cr->funcionesFreq[5][5] = Cr_CrearFuncion_freq(MDM, 0.0097404529925521, 5801.73454024031);
-        cr->funcionesFreq[6][5] = Cr_CrearFuncion_freq(MDM, 0.0369163676970497, 7939.055421370987);
-        cr->funcionesFreq[7][5] = Cr_CrearFuncion_freq(MDM, 0.0107199965765622, 5657.707141409287);
+        //cr->funcionesFreq[6][5] = Cr_CrearFuncion_freq(MDM, 0.0369163676970497, 7939.055421370987);
+        //cr->funcionesFreq[7][5] = Cr_CrearFuncion_freq(MDM, 0.0107199965765622, 5657.707141409287);
 
     return SI;
 }
@@ -199,6 +205,7 @@ void Cr_Procese(Cr_Control *cr) {
         Cr_Caracteristicas vImag[SAMPLES]={0};
         ArduinoFFT<Cr_Caracteristicas> FFT= ArduinoFFT<Cr_Caracteristicas>(vReal, vImag, SAMPLES,FS);
 
+      
         for (uint16_t i = 0; i < WINDOW_SIZE; i++){
           vReal[i] = int16_t(cr->wnd[ch].canal[i]);
         }
@@ -206,6 +213,8 @@ void Cr_Procese(Cr_Control *cr) {
         FFT.windowing(FFTWindow::Hamming, FFTDirection::Forward);
         FFT.compute(FFTDirection::Forward);
         FFT.complexToMagnitude(); 
+
+
 
          //caracteristicas en el dominio de la frecuencia
         for (int f_idx = 0; f_idx < NUM_CAR_F; f_idx++) {
