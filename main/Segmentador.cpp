@@ -42,11 +42,12 @@ void Sg_Procese (Sg_Control *sg){
     if(fill>=WINDOW_SIZE){
   
       for (int j=0; j< WINDOW_SIZE; j++){
-      for (int i = 0; i <  NUM_CHANNELS; i++){
-        Sg_data input;
-        Bf_Bajar_Dato(&c_buff,i, (Bf_data*)&input);
-        sg->wnd[i].canal[j]=Fc_Procese (&c_filter, input, i);
-      }  
+        for (int i = 0; i < NUM_CHANNELS; i++) {
+          Bf_data raw_input;
+          Bf_Bajar_Dato(&c_buff, i, &raw_input);
+          Sg_data input = (Sg_data)raw_input; // convertir de short a float
+          sg->wnd[i].canal[j] = Fc_Procese(&c_filter, input, i);    
+        }
     }
 
     Cr_Procese(&c_car);

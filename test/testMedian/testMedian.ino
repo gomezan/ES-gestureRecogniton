@@ -76,11 +76,18 @@ void loop(){
 
 
 /*Revisar si el buffer se llena*/
-/*
   if(Bf_Lleno(&c_buff,0)){
       Serial.println("esta lleno");
   }
-*/
+
  
+
+ /*Revisar inferencia*/
+ /*
+  int a =millis();
+  if((a>10000)&&(a<10005)){
+       IA_Predict(&c_modelo);
+  }
+  */   
 
 }

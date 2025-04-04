@@ -20,8 +20,9 @@ void EMG_Procese (){
    }
    
     //Almacenar datos en el buffer
-    for (int i = 0; i < NUM_CHANNELS; i++)
+    for (int i = 0; i < NUM_CHANNELS; i++){
       Bf_Subir_Dato(&c_buff,i,static_cast<Bf_data>(inputSignals[i]));
+    }
 
    // Imprimir los valores de las salidas de los 8 canales
    /*
