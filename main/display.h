@@ -6,6 +6,7 @@
 #include <Tiempo.h>
 #include <model.h>
 
+#define BAUD_RATE 115200        // Velocidad de comunicación serial
 #define NUM_MUERTO 0x10  /// Apagado
 #define PERIODO_BASE 5 // Programado a 100 Hz
 

@@ -7,7 +7,7 @@
 
 #define SIZE_BUFFER 300
 
-typedef float Bf_data;
+typedef short Bf_data;
 typedef int Bf_pointer;
 
 

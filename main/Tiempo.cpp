@@ -3,6 +3,7 @@
 #define TIEMPO_C
 
 #include <Tiempo.h>
+#include <EMG.h>
 
 extern Tm_Control c_tiempo;
 
@@ -44,6 +45,7 @@ char Tm_config_timer()
 /* Rutina de la interrupción */		
 void ARDUINO_ISR_ATTR onTimer() {
   c_tiempo.atender_flag=SI;
+  EMG_Procese();
 }
 
 /* Rutina para procesar el módulo (dentro del loop de polling) */				

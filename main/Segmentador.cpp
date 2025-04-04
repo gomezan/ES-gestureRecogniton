@@ -4,12 +4,14 @@
 #include <Buffer.h>
 #include <Caracterizador.h>
 #include "Varios.h"
-#include "Segmentador.h"
+#include <Segmentador.h>
+#include <Filtrador.h>
 
 
 extern Tm_Control c_tiempo;
 extern Buffer_Control c_buff;
 extern Cr_Control c_car;
+extern Fc_Control c_filter;
 
 /* Rutina para iniciar el módulo (su estructura de datos) */   
 char Sg_Inicie (Sg_Control *sg, 
@@ -40,11 +42,12 @@ void Sg_Procese (Sg_Control *sg){
     if(fill>=WINDOW_SIZE){
   
       for (int j=0; j< WINDOW_SIZE; j++){
-  
-        for (int i = 0; i <  NUM_CHANNELS; i++)  
-        Bf_Bajar_Dato(&c_buff,i, (Bf_data*)&sg->wnd[i].canal[j]);
-          
-      }
+      for (int i = 0; i <  NUM_CHANNELS; i++){
+        Sg_data input;
+        Bf_Bajar_Dato(&c_buff,i, (Bf_data*)&input);
+        sg->wnd[i].canal[j]=Fc_Procese (&c_filter, input, i);
+      }  
+    }
 
     Cr_Procese(&c_car);
 
