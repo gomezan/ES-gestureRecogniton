@@ -5,7 +5,7 @@
 #include <Caracterizador.h>
 #include "Varios.h"
 #include <Segmentador.h>
-#include <Filtrador.h>
+#include "Filtrador.h"
 
 
 extern Tm_Control c_tiempo;

@@ -13,7 +13,7 @@ typedef struct Md_Control Md_Control;
 struct Md_Control
 {                  
    /* Filtro de almacenamiento */
-  volatile IA_gesture filtro[AM_FIL];
+  volatile IA_gesture filtro[TAM_FIL];
 };
    
 /* ======= Rutinas ======== */
@@ -25,6 +25,8 @@ void Md_Procese (Md_Control *md);
 
 /* ===== RUTINAS DE INTERFAZ ====== */
 void Md_savePrediction(Md_Control *md, IA_gesture pred);
+
+
 
 /* == FIN DE RUTINAS DE INTERFAZ == */
 
