@@ -5,8 +5,9 @@
 
 #include <Tiempo.h>
 
-#define PERIODO_SG 100 // Programado a 5 Hz
+#define PERIODO_SG 20 // Programado a 25 Hz
 #define WINDOW_SIZE 100
+#define OVERLAY 0.8
 
 /* Tipo de dato que almacena el tamaño de la ventana a tratar */
 typedef float Sg_data;
@@ -24,6 +25,8 @@ struct Sg_Control
    Tm_Num   n_periodo;
   /* Ventana de segmentación */
    volatile Sg_canalData *wnd;
+  /*Estado de la ventana*/
+   char empty;
       
 };
    
