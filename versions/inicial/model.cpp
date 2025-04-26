@@ -4,14 +4,13 @@
 #include "model.h"
 #include <Tiempo.h>
 #include <display.h>
-#include <median.h>
 #include "Varios.h"
 
 #include <GestureClassification_inferencing.h>
 
 //modulos principales 
 extern Tm_Control c_tiempo;
-extern Md_Control c_median;
+extern Dp_Control c_display;
 
 // Definición de modelos Eloquent
 int raw_feature_get_data(size_t offset, size_t length, float *out_ptr);
@@ -146,8 +145,7 @@ uint16_t get_top_prediction(ei_impulse_result_t result) {
     Serial.println(pred);
   */
   
-  //Serial.println("El modelo predice"+pred);
-  Md_savePrediction(&c_median,pred);
+  Dp_updatePrediction(&c_display,pred);
   return SI;  
 
  }

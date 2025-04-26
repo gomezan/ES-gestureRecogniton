@@ -27,41 +27,68 @@ char Sg_Inicie (Sg_Control *sg,
    if ( !Tm_Inicie_periodo(&c_tiempo, n_periodo, PERIODO_SG) )
       return NO;
 
+    //Estado inicial de la ventana
+    sg->empty=SI;
+
    return SI;
    };
 
 
                   
-/* Rutina para procesar el módulo (dentro del loop de polling) */				
-void Sg_Procese (Sg_Control *sg){
+/* Rutina para procesar el módulo (dentro del loop de polling) */						
+void Sg_Procese(Sg_Control *sg) {
+    Bf_pointer ltr;
+    Bf_Libre(&c_buff, 0, &ltr);
+    int fill = SIZE_BUFFER - ltr;
+    int overlap_size = (int)(OVERLAY * WINDOW_SIZE); 
 
-  Bf_pointer ltr;
-  Bf_Libre(&c_buff, 0, &ltr);
-  int fill=SIZE_BUFFER-ltr;
 
-    if(fill>=WINDOW_SIZE){
-  
-      for (int j=0; j< WINDOW_SIZE; j++){
+    if ((fill >= overlap_size)&& !(sg->empty)){
+      // Calcular el número de datos a mantener y a reemplazar
+      int new_data_size = WINDOW_SIZE - overlap_size; 
+
+      // Mantener el xx% de los datos existentes
+      for (int i = 0; i < NUM_CHANNELS; i++) {
+          for (int j = 0; j < overlap_size; j++) {
+              sg->wnd[i].canal[j] = sg->wnd[i].canal[j + new_data_size]; // Desplazar los datos
+          }
+      }
+
+      // Llenar el yy% restante con nuevos datos
+      for (int i = 0; i < NUM_CHANNELS; i++) {
+          for (int j = 0; j < new_data_size; j++) {
+              Bf_data input;
+              Bf_Bajar_Dato(&c_buff, i, (Bf_data*)&input);
+              sg->wnd[i].canal[overlap_size + j] = Fc_Procese(&c_filter, input, i);
+          }
+      }
+
+      Cr_Procese(&c_car);
+
+        // Imprimir los valores de las salidas de los 8 canales
+        /*
         for (int i = 0; i < NUM_CHANNELS; i++) {
-          Bf_data raw_input;
-          Bf_Bajar_Dato(&c_buff, i, &raw_input);
-          Sg_data input = (Sg_data)raw_input; // convertir de short a float
-          sg->wnd[i].canal[j] = Fc_Procese(&c_filter, input, i);    
-        }
-    }
-
-    Cr_Procese(&c_car);
-
-      // Imprimir los valores de las salidas de los 8 canales
-      /*
-          for (int i=0;i<NUM_CHANNELS;i++){
-            for(int j=0;j<WINDOW_SIZE;j++){
-            Serial.print(sg->wnd[i].canal[j]);
-            Serial.print(",");
-          }
+            for (int j = 0; j < WINDOW_SIZE; j++) {
+                Serial.print(sg->wnd[i].canal[j]);
+                Serial.print(",");
+            }
             Serial.println();
-          }
-      */
+        }
+       */
+    } else if ((fill >= WINDOW_SIZE)&&(sg->empty)){
+
+      for (int j=0; j< WINDOW_SIZE; j++){
+          for (int i = 0; i <  NUM_CHANNELS; i++){
+            Bf_data input;
+            Bf_Bajar_Dato(&c_buff,i, (Bf_data*)&input);
+            sg->wnd[i].canal[j]=Fc_Procese (&c_filter, input, i);
+          }  
+      }
+
+        sg->empty=NO;
+
+      Cr_Procese(&c_car);
+
     }
 };
 

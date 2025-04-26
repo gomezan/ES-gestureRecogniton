@@ -7,7 +7,6 @@
 #include "Segmentador.h"
 #include "Caracterizador.h"
 #include <Filtrador.h>
-#include "median.h"
 
 Tm_Control c_tiempo;
 Dp_Control c_display;
@@ -16,7 +15,6 @@ Buffer_Control c_buff;
 Sg_Control c_seg;
 Cr_Control c_car;
 Fc_Control c_filter;
-Md_Control c_median;
 
 /*Tabla de periodos */
 Tm_Periodo periodos[2];
@@ -51,8 +49,6 @@ void setup() {
   Sg_Inicie(&c_seg, 1,data);
   //Inicializar caracterizador
   Cr_Inicie(&c_car, data,veChar);
-  //Inicializar filtro de mediana
-  Md_Inicie(&c_median);
 
 }
 
@@ -80,11 +76,11 @@ void loop(){
 
 
 /*Revisar si el buffer se llena*/
-
+/*
   if(Bf_Lleno(&c_buff,0)){
       Serial.println("esta lleno");
   }
-
+*/
  
 
 }
