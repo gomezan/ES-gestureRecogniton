@@ -6,7 +6,7 @@
 #include <Tiempo.h>
 
 #define WINDOW_SIZE 100
-#define PERIODO_SG 50 // Programado a 100 Hz
+#define PERIODO_SG 50 // Programado a 10 Hz
 #define OVERLAY 0.5
 
 /* Tipo de dato que almacena el tamaño de la ventana a tratar */
