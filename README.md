@@ -14,19 +14,28 @@ El sistema está diseñado para ejecutarse de forma embebida en el microcontrola
 ## Estructura del Proyecto
 
 ES-gestureRecognition/
-├── Main/ # Versión más estable del sistema (uso de NN en tiempo real)
-│ ├── main.ino
-│ └── src/ # Archivos fuente y procesamiento embebido
+├── Main/                         # Versión más estable del sistema (uso de NN en tiempo real)
+│   ├── main.ino
+│   └── src/                      # Archivos fuente y procesamiento embebido
 │
-├── versions/ # Versiones previas del sistema
-│ ├── version_JT/ Esta version del sistema solo usa 12 caracteristicas en el dominio del tiempo.
-│ └── Inicial/ Esta versión del sistema no soporta el tratamiento de ventanas solapantes y tampoco el post-procesamiento usando un filtro de medianas.
+├── versions/                     # Versiones previas del sistema
+│   ├── version_JT/              # Esta versión del sistema solo usa 12 características en el dominio del tiempo.
+│   └── Inicial/                 # Esta versión del sistema no soporta el tratamiento de ventanas solapantes y tampoco el post-procesamiento usando un filtro de medianas.
 │
-├── test/ # Pruebas unitarias y bloques de prueba del sistema
-│ ├── feature_extraction/
-│ ├── model_inference/
-│ └── signal_acquisition/
-│ └── Post-processing/
+├── test/                         # Pruebas unitarias y bloques de prueba del sistema
+│   ├── feature_extraction/
+│   ├── model_inference/
+│   ├── signal_acquisition/
+│   └── Post-processing/
+|   └── Windows_segmentatio/
+│
+├── modelos/                      # Modelos entrenados y evaluaciones
+│   ├── NN/                      # Versiones de modelos de redes neuronales (.keras.h5, Edge Impulse)
+│   └── BF/                      # Modelos Bagged Forest (.joblib, .h)
+│
+├── README.md
+└── LICENSE
+
 
 │
 ├── modelos/ # Modelos entrenados y evaluaciones
