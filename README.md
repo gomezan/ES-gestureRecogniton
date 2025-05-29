@@ -11,39 +11,31 @@ El sistema está diseñado para ejecutarse de forma embebida en el microcontrola
 - **Procesamiento embebido eficiente** desplegado en ESP32S3.
 - **Aplicación práctica** orientada a la rehabilitación de la función motora de la mano.
 
-## Estructura del Proyecto
 
-ES-gestureRecognition/
-├── Main/                         # Versión más estable del sistema (uso de NN en tiempo real)
-│   ├── main.ino
-│   └── src/                      # Archivos fuente y procesamiento embebido
-│
-├── versions/                     # Versiones previas del sistema
-│   ├── version_JT/              # Esta versión del sistema solo usa 12 características en el dominio del tiempo.
-│   └── Inicial/                 # Esta versión del sistema no soporta el tratamiento de ventanas solapantes y tampoco el post-procesamiento usando un filtro de medianas.
-│
-├── test/                         # Pruebas unitarias y bloques de prueba del sistema
-│   ├── feature_extraction/
-│   ├── model_inference/
-│   ├── signal_acquisition/
-│   └── Post-processing/
-|   └── Windows_segmentatio/
-│
-├── modelos/                      # Modelos entrenados y evaluaciones
-│   ├── NN/                      # Versiones de modelos de redes neuronales (.keras.h5, Edge Impulse)
-│   └── BF/                      # Modelos Bagged Forest (.joblib, .h)
-│
-├── README.md
-└── LICENSE
+## 📁 Estructura del Proyecto
+
+- **[`Main/`](./Main)**  
+  Versión más estable del sistema. Utiliza una red neuronal (NN) para el reconocimiento en tiempo real. Contiene:
+  - `main.ino`: programa principal.
+  - [`src/`](./Main/src): código fuente y procesamiento embebido.
+
+- **[`versions/`](./versions)**  
+  Versiones previas del sistema.
+  - `version_JT/`: usa 12 características en el dominio del tiempo.
+  - `Inicial/`: versión básica sin ventanas solapadas ni post-procesamiento.
+
+- **[`test/`](./test)**  
+  Pruebas unitarias y bloques individuales del sistema.
+  - `feature_extraction/`, `model_inference/`, `signal_acquisition/`, `Post-processing/`.
+
+- **[`modelos/`](./modelos)**  
+  Modelos entrenados y listos para uso.
+  - `NN/`: modelos de redes neuronales (.h5, Edge Impulse).
+  - `BF/`: modelos Bagged Forest (.joblib, .h).
+
+- `README.md` y `LICENSE`: documentación y licencia del proyecto.
 
 
-│
-├── modelos/ # Modelos entrenados y evaluaciones
-│ ├── NN/ # Versiones de modelos de redes neuronales (.keras.h5, Edge Impulse)
-│ └── BF/ # Modelos Bagged Forest (.joblib, .h)
-│
-├── README.md
-└── LICENSE
 
 ## Requisitos
 
@@ -52,25 +44,34 @@ ES-gestureRecognition/
 
 ## Cómo Ejecutar el Proyecto
 
+### 1. Despliegue del Modelo
+
+Tomar cualquier modelo en la carpeta modelos o cualquier modelo compatible con el entorno embebido y e incluirlo en el proyecto .
+
+### 1. Implementación en el ESP32S3
+
+Carga el firmware de la carpeta `Main/` usando PlatformIO o Arduino IDE. Esta versión contiene la arquitectura más estable basada en redes neuronales.
+
+
+
+## Funcionamiento
+
 ### 1. Recolección de Datos sEMG
 
 Utiliza el código embebido para capturar señales desde sensores sEMG conectados al microcontrolador. A continuación se filtran, almacenan y se extraen sus caractersticas para la inferencia del modelo. 
 
 ### 2. Preprocesamiento y Extracción de Características
 
-Se realiza el filtrado y la extracción de 18 características (como RMS, MAV, ZC, etc.) para alimentar al modelo de clasificación.
+Se realiza el filtrado de las señales, se segmentan en ventanas de 200 ms y posteriormente se extraen 18 características (como RMS, MAV, ZC, etc.) para alimentar al modelo de clasificación.
 
-### 3. Entrenamiento del Modelo
+### 3. Inferencia del Modelo
 
-Entrena modelos con los scripts correspondientes y exporta versiones compatibles con el entorno embebido.
+El modelo realiza la inferencia sobre el vector de caracteristicas calculado.
 
-### 4. Implementación en el ESP32S3
+### 4. Post-procesamiento
 
-Carga el firmware de la carpeta `Main/` usando PlatformIO o Arduino IDE. Esta versión contiene la arquitectura más estable basada en redes neuronales.
+El sistema busca generar una sola respuesta coherente a la salida empleando bloques asociados a esto, como un filtro de medianas y un bloque de envio serial.
 
-### 5. Pruebas
-
-La carpeta `test/` contiene módulos independientes que prueban funcionalidades clave del sistema: adquisición de señales, extracción de características e inferencia.
 
 ## Gestos Reconocidos
 
